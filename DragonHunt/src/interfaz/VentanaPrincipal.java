@@ -1,8 +1,11 @@
 package interfaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,65 +13,54 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-public class VentanaPrincipal extends JFrame implements ActionListener {
-	public static final String NUEVA_PARTIDA = "new";
-	public static final String CARGAR_PARTIDA = "car";
-	public static final String VER_PUNTAJES = "ver";
-		
-	private JButton btnNuevaPartida;
-	private JButton btnCargarPartida;
-	private JButton btnVerPuntajes;
+
+
+public class VentanaPrincipal extends JFrame {
+	private PanelPrincipal pPrincipal;
+	private VentanaJuego vJuego;
 	
-
 	public VentanaPrincipal() {
 		super("Dragon Hunt");
-		setLayout(new GridLayout(6, 1));
-		setPreferredSize(new Dimension(400, 500));
-//		setLocationRelativeTo(null);		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		btnNuevaPartida = new JButton("Nueva partida");
-		btnNuevaPartida.addActionListener(this);
-		btnNuevaPartida.setActionCommand(NUEVA_PARTIDA);
-		btnNuevaPartida.setContentAreaFilled(false);
-		
-		btnCargarPartida = new JButton("Cargar partida");
-		btnCargarPartida.addActionListener(this);
-		btnCargarPartida.setActionCommand(CARGAR_PARTIDA);
-		btnCargarPartida.setContentAreaFilled(false);
-		
-		btnVerPuntajes = new JButton("Ver puntajes");
-		btnVerPuntajes.addActionListener(this);
-		btnVerPuntajes.setActionCommand(VER_PUNTAJES);
-		btnVerPuntajes.setContentAreaFilled(false);
-		
-		add(btnNuevaPartida);
-		add(btnCargarPartida);
-		add(btnVerPuntajes);
-		repaint();
+		setSize(700,600);
+		setLocationRelativeTo(null);//"Centra" la pantalla
+		pPrincipal = new PanelPrincipal(this);
+		vJuego = new VentanaJuego(this);
+		add(pPrincipal);		
 		pack();
-		
-	}
+		repaint();
 
-	@Override
-	public void paint(Graphics g) {
-		g.fillRect(0, 0, 400, 500);
-		ImageIcon fondo = new ImageIcon("img/Fondo.gif");
-		g.drawImage(fondo.getImage(), 0, 0, null);
 		
 	}
+	@Override
+	public void paint(Graphics g) {		
+		Dimension d = getSize();
+		ImageIcon fondo = new ImageIcon("img/Fondo1.gif");
+		g.drawImage(fondo.getImage(), 0, 0, d.width, d.height, null);
+
+	}
+	
+	public void nuevaPartida() {
+		vJuego.setVisible(true);
+		this.setVisible(false);
+		
+	}
+	public void cargarPartida() {
+		
+	}
+	public void verPuntajes() {
+		
+	}
+	
+
+	
 	public static void main(String[] args) {
 		VentanaPrincipal principal = new VentanaPrincipal();
 		principal.setVisible(true);
 		
 
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		
 	}
 
 }
