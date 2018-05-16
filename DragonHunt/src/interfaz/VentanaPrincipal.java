@@ -15,11 +15,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import modelo.Dragon;
+import modelo.Juego;
 
 
+/**
+ * Clase principal de la interfaz
+ * 
+ *
+ */
 public class VentanaPrincipal extends JFrame {
 	private PanelPrincipal pPrincipal;
 	private VentanaJuego vJuego;
+	
+	private Juego elJuego;
 	
 	public VentanaPrincipal() {
 		super("Dragon Hunt");
@@ -28,6 +37,9 @@ public class VentanaPrincipal extends JFrame {
 		setLocationRelativeTo(null);//"Centra" la pantalla
 		pPrincipal = new PanelPrincipal(this);
 		vJuego = new VentanaJuego(this);
+		elJuego = new Juego();
+		ImageIcon icon = new ImageIcon("img/logo.png");
+		setIconImage(icon.getImage());
 		add(pPrincipal);		
 		pack();
 		repaint();
@@ -52,6 +64,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 	public void verPuntajes() {
 		
+	}
+	public Dragon darDragonAleatorio() {
+		return elJuego.darDragonAleatorio();
 	}
 	
 
