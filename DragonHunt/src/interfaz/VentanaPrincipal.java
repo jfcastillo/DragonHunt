@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import hilos.HiloMover;
 import modelo.Dragon;
 import modelo.Juego;
 
@@ -67,10 +68,22 @@ public class VentanaPrincipal extends JFrame {
 	}
 	public Dragon darDragonAleatorio() {
 		return elJuego.darDragonAleatorio();
+	}	
+	
+	public PanelPrincipal getpPrincipal() {
+		return pPrincipal;
+	}
+	public VentanaJuego getvJuego() {
+		return vJuego;
+	}
+	public void nivel() {
+		
 	}
 	
-
-	
+	public void mover() {
+		HiloMover hilo = new HiloMover(this);
+		hilo.start();
+	}
 	public static void main(String[] args) {
 		VentanaPrincipal principal = new VentanaPrincipal();
 		principal.setVisible(true);

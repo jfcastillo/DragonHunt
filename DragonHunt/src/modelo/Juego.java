@@ -1,5 +1,7 @@
 package modelo;
 
+
+
 public class Juego {
 	/**
 	 * Nivel en el que se encuentra el juego
@@ -71,12 +73,55 @@ public class Juego {
 		this.ultimoDragon = ultimoDragon;
 	}
 
-
+	public void agregarJugador(String nombre, int puntaje) {
+		Jugador nuevo = new Jugador(nombre, puntaje);
+		
+		if(raiz==null) {
+			raiz = nuevo;
+		} 
+		else {
+			Jugador auxiliar = raiz;
+			Jugador padre = null;
+			while( auxiliar!=null ) {
+				padre = auxiliar;
+				if(puntaje<auxiliar.getPuntaje()) {
+					auxiliar = auxiliar.getIzq();
+					if (auxiliar==null) {
+						padre.setIzq(nuevo);
+						auxiliar = null;
+					}
+				}
+				else {
+					auxiliar = auxiliar.getDer();
+					if (auxiliar==null) {
+						padre.setDer(nuevo);
+						auxiliar = null;
+					}
+				}
+				
+			}
+		}
+	}
+	
+	private void imprimirEntre (Jugador reco)
+    {
+        if (reco != null)
+        {    
+            imprimirEntre (reco.getIzq());
+            System.out.print(reco.getPuntaje() + " ");
+            imprimirEntre (reco.getDer());
+        }
+    }
+    public void imprimirEntre ()
+    {
+        imprimirEntre (raiz);
+        System.out.println();
+    }
 	/**
 	 * Método para agregar un nuevo dragón a la lista
 	 * @param drag Es el dragon que se va a agregar
 	 */
-	private void agregarDragon(Dragon drag) {
+	public void agregarDragon(Dragon drag) {
 		Dragon actual = primerDragon;
 		if (actual == null) {
 			primerDragon = drag;
@@ -123,6 +168,7 @@ public class Juego {
 		}
 		return encontrado;
 	}
+	
 	
 	public Dragon darDragonAleatorio() {		
 		int codeRamdon = (int) (Math.random()*3)+1;

@@ -27,6 +27,8 @@ public class Jugador {
 		super();
 		this.nombre = nombre;
 		this.puntaje = puntaje;
+		izq = null;
+		der = null;
 	}
 	public String getNombre() {
 		return nombre;
