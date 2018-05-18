@@ -1,52 +1,58 @@
 package interfaz;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
-public class VentanaJuego extends JFrame implements MouseListener{
-	public static ImageIcon FONDO_JUEGO = new ImageIcon("img/fondo_P.gif");
+import java.awt.BorderLayout;
+/**
+ * 
+ * @author Felipe Castillo && Mayumi Tamura
+ * @version 4.0 23/05/18
+ */
+public class VentanaJuego extends JFrame {
+	
+	//	RELACIONES
 	
 	private VentanaPrincipal vPrincipal;
-
-	public VentanaJuego(VentanaPrincipal vPrin) {
+	
+	private PanelInteractivo pInteractivo;
+	
+	private PanelOpcionesJuego pOpcionesJuego;
+	
+	//	CONSTRUCTOR
+	/**
+	 * Método constructor de la clase.
+	 * Crea una Ventana de juego e inicializa sus atributos.
+	 * @param ventana La ventana principal.
+	 */
+	public VentanaJuego(VentanaPrincipal ventana) {
+		vPrincipal = ventana;
+		setTitle("Dragon Hunt");
+		setSize(1000, 700);
+		setLayout( new BorderLayout());
+		setResizable(false);
+		setVisible(true);
 		
-		setVisible(false);
-		setSize(1000, 500);
+		setIconImage(vPrincipal.ICON.getImage());
+		pInteractivo = new PanelInteractivo(this);
+		pOpcionesJuego = new PanelOpcionesJuego(this);
+		
+		add(pInteractivo, BorderLayout.CENTER);
+		add(pOpcionesJuego, BorderLayout.SOUTH);
+		
 		setLocationRelativeTo(null);
-		addMouseListener(this);
-		vPrincipal = vPrin;
 	}
-	@Override
-	public void paint(Graphics g) {
-		Dimension d = getSize();
-		g.drawImage(FONDO_JUEGO.getImage(), 0, 0, d.width, d.height, null);
-		ImageIcon dragon = new ImageIcon(vPrincipal.darDragonAleatorio().getRutaImagen());
-		System.out.println(dragon);
-		System.out.println(vPrincipal.darDragonAleatorio().getRutaImagen());
-		System.out.println("x"+vPrincipal.darDragonAleatorio().getPosicionX());
-		System.out.println("y"+vPrincipal.darDragonAleatorio().getPosicionY());
-		g.drawImage(dragon.getImage(), vPrincipal.darDragonAleatorio().getPosicionX(), vPrincipal.darDragonAleatorio().getPosicionY(), null);
-		
+	
+	//	MÉTODOS
+	
+	public VentanaPrincipal darVentanaPrincipal() {
+		return vPrincipal;
+	}
+	
+	public void guardar() {
 		
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {}
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-	@Override
-	public void mouseExited(MouseEvent e) {}
-	@Override
-	public void mousePressed(MouseEvent e) {
-//		System.out.println(e.getX());
-//		System.out.println(e.getY());
+	
+	public void volverPrincipal() {
 		
 	}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-
 }

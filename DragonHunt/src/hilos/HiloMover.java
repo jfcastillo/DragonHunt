@@ -14,10 +14,20 @@ public class HiloMover extends Thread {
 	public void run() {
 		boolean salir = false;
 		while (!salir) {
-			vPrincipal.getvJuego().repaint();
-			
+			for (int i = 1; i <= vPrincipal.darJuego().getNumDragones(); i++) {
+				
+				vPrincipal.darJuego().buscarDragonCodigo(i).mover();
+				
+			}
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
+		
 	}
 	
 

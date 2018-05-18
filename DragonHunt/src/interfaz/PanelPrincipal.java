@@ -15,28 +15,49 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PanelPrincipal extends JPanel implements ActionListener {
+	
+	//	CONSTANTES
+	
 	public static final String NUEVA_PARTIDA = "new";
+	
 	public static final String CARGAR_PARTIDA = "car";
+	
 	public static final String VER_PUNTAJES = "ver";
-	public static ImageIcon IMG_NUEVA_PARTIDA = new ImageIcon("img/btnNuevaPartida.png");
-	public static ImageIcon IMG_CARGAR_PARTIDA = new ImageIcon("img/btnCargarPartida.png");
-	public static ImageIcon IMG_VER_PUNTAJES = new ImageIcon("img/bntVerPuntajes.png");
+	
+	public static final ImageIcon FONDO_PANEL = new ImageIcon("img/Fondo1.gif");
+	
+	public static final ImageIcon IMG_NUEVA_PARTIDA = new ImageIcon("img/btnNuevaPartida.png");
+	
+	public static final ImageIcon IMG_CARGAR_PARTIDA = new ImageIcon("img/btnCargarPartida.png");
+	
+	public static final ImageIcon IMG_VER_PUNTAJES = new ImageIcon("img/bntVerPuntajes.png");
 
+	//	ATRIBUTOS
+	
 	private JButton btnNuevaPartida;
+	
 	private JButton btnCargarPartida;
+	
 	private JButton btnVerPuntajes;
 
+	//	RELACIONES
+	
 	private VentanaPrincipal vPrincipal;
 
-	public PanelPrincipal(VentanaPrincipal vPrin) {
-		repaint();
+	//	CONSTRUCTOR
+	/**
+	 * Método constructor de la clase.
+	 * Crea un Panel Principal e inicializa sus atributos y relaciones.
+	 * @param ventana La ventana Principal.
+	 */
+	public PanelPrincipal(VentanaPrincipal ventana) {
+		vPrincipal = ventana;
 		setLayout(new GridBagLayout());
-		vPrincipal = vPrin;
+		
 		// Permite agregar diferentes atributos sobre cómo van a quedar organizados en la pantalla
 		GridBagConstraints constrains = new GridBagConstraints();
 
 		setPreferredSize(new Dimension(400, 500));
-		
 		
 		btnNuevaPartida = new JButton();	
 		btnNuevaPartida.setIcon(IMG_NUEVA_PARTIDA);
@@ -52,9 +73,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		// Cantidad de filas que ocupa el boton
 		constrains.gridheight = 1;
 		
-		
 		add(btnNuevaPartida, constrains);
-
 		
 		//Label para dejar espacio entre los botones
 		JLabel espacio = new JLabel("");
@@ -82,7 +101,6 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		espacio2.setPreferredSize(new Dimension(150, 30));
 		constrains.gridy = 3;
 		add(espacio2, constrains);
-
 		
 		btnVerPuntajes = new JButton();
 		btnVerPuntajes.setIcon(IMG_VER_PUNTAJES);
@@ -97,27 +115,37 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		constrains.gridwidth = 3;
 		// Cantidad de filas que ocupa el boton
 		constrains.gridheight = 1;
-		add(btnVerPuntajes, constrains);
-		
-		
+		add(btnVerPuntajes, constrains);	
 	}
-
 	
+	public void paintComponent(Graphics g) {
+		Dimension tamano = getSize();
+		
+		g.setColor(Color.GRAY);
+		g.fillRect(0, 0, tamano.width, tamano.height);
+		
+		
+		g.drawImage(FONDO_PANEL.getImage(), 0, 0, tamano.width, tamano.height, this);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
+		
 		if (comando == NUEVA_PARTIDA) {
 			vPrincipal.nuevaPartida();
-			
 		}
 		else if (comando == CARGAR_PARTIDA) {
-			
+			try {
+				vPrincipal.cargarPartida();
+			}
+			catch(Exception e2) {
+				System.out.println(e2.getMessage());
+			}
 		}
 		else if (comando == VER_PUNTAJES) {
-			
+			vPrincipal.verPuntajes();
 		}
-
 	}
-
+	
 }

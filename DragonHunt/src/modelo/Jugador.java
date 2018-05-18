@@ -1,6 +1,12 @@
 package modelo;
-
+/**
+ * Entidad que representa al jugador.
+ * @author Felipe Castillo && Mayumi Tamura
+ * @version 4.0 23/05/18
+ */
 public class Jugador {
+	
+	//	ATRIBUTOS
 	/**
 	 * Nombre del jugador
 	 */
@@ -10,6 +16,16 @@ public class Jugador {
 	 */
 	private int puntaje;
 	/**
+	 * Cantidad de dragones atrapados
+	 */	
+	private int dragonesAtrapados;
+	/**
+	 * Munición actual del jugador
+	 */
+	private int municion;
+	
+	//	RELACIONES
+	/**
 	 * Subárbol izquierdo de jugadores
 	 */
 	private Jugador izq;
@@ -17,43 +33,75 @@ public class Jugador {
 	 * Subárbol derecho de jugadores
 	 */
 	private Jugador der;
+	
+	//	CONSTRUCTOR
 	/**
-	 * Constructor
-	 * Crea un nuevo jugador con la información necesaria
-	 * @param nombre Nombre del jugador
-	 * @param puntaje Puntaje inicial del jugador
+	 * Método constructor de la clase.
+	 * Crea un nuevo jugador con la información necesaria e inicializa sus atributos y relaciones.
+	 * @param nombre El nombre del jugador.
+	 * @param puntaje El puntaje inicial del jugador.
 	 */
 	public Jugador(String nombre, int puntaje) {
 		super();
 		this.nombre = nombre;
 		this.puntaje = puntaje;
+		municion = 10;
 		izq = null;
 		der = null;
 	}
+	
+	//	MÉTODOS GET && SET
+		
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 	public int getPuntaje() {
 		return puntaje;
 	}
-	public void setPuntaje(int puntaje) {
-		this.puntaje = puntaje;
+	
+	public void aumentarPuntaje() {
+		puntaje += 10;
 	}
-	public Jugador getIzq() {
-		return izq;
+	
+	public void disminuirPuntaje() {
+		puntaje -= 10;
+	}	
+	
+	public int getDragonesAtrapados() {
+		return dragonesAtrapados;
 	}
-	public void setIzq(Jugador izq) {
-		this.izq = izq;
+
+	public void setDragonesAtrapados(int dragonesAtrapados) {
+		this.dragonesAtrapados = dragonesAtrapados;
 	}
-	public Jugador getDer() {
-		return der;
+	
+	public int getMunicion() {
+		return municion;
 	}
-	public void setDer(Jugador der) {
-		this.der = der;
+
+	public void setMunicion(int municion) {
+		this.municion = municion;
 	}
 	
 
+	public Jugador getIzq() {
+		return izq;
+	}
+	
+	public void setIzq(Jugador izq) {
+		this.izq = izq;
+	}
+	
+	public Jugador getDer() {
+		return der;
+	}
+	
+	public void setDer(Jugador der) {
+		this.der = der;
+	}
 }

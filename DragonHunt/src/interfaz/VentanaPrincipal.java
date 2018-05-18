@@ -1,94 +1,109 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Font;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
-import hilos.HiloMover;
+import hilos.*;
 import modelo.Dragon;
-import modelo.Juego;
-
-
+import modelo.JuegoDragon;
 /**
  * Clase principal de la interfaz
- * 
- *
+ * @author Felipe Castillo && Mayumi Tamura
+ * @version 4.0 23/05/18
  */
 public class VentanaPrincipal extends JFrame {
+	//	CONSTANTES
+	/**
+	 * 
+	 */
+	public static final ImageIcon ICON = new ImageIcon("img/logo.png");
+	
+	//	RELACIONES
+	/**
+	 * El panel principal de la ventana.
+	 */
 	private PanelPrincipal pPrincipal;
+	/**
+	 * La ventana interactiva del juego.
+	 */
 	private VentanaJuego vJuego;
+	/**
+	 * La ventana de puntajes.
+	 */
+	private VentanaPuntajes vPuntajes;
+	/**
+	 * El juego de la interfaz.
+	 */
+	private JuegoDragon elJuego;
+	/**
+	 * El hilo de movimiento.
+	 */
+	private HiloMover hiloMover;
+	/**
+	 * El hilo de creación
+	 */
+	private HiloCrear hiloCrear;
 	
-	private Juego elJuego;
-	
+	//CONSTRUCTOR
+	/**
+	 * Método constructor de la clase.
+	 * Crea una ventana principal e inicializa sus relaciones.
+	 */
 	public VentanaPrincipal() {
-		super("Dragon Hunt");
-		
+		setTitle("Dragon Hunt");
 		setSize(700,600);
+		setResizable(false);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+		
+		setIconImage(ICON.getImage());
+		
 		setLocationRelativeTo(null);//"Centra" la pantalla
+		
 		pPrincipal = new PanelPrincipal(this);
-		vJuego = new VentanaJuego(this);
-		elJuego = new Juego();
-		ImageIcon icon = new ImageIcon("img/logo.png");
-		setIconImage(icon.getImage());
-		add(pPrincipal);		
+		elJuego = new JuegoDragon();
+		hiloMover = new HiloMover(this);
+		hiloCrear = new HiloCrear(this, elJuego);
+		
+		add(pPrincipal);
+		
 		pack();
-		repaint();
-
 		
 	}
-	@Override
-	public void paint(Graphics g) {		
-		Dimension d = getSize();
-		ImageIcon fondo = new ImageIcon("img/Fondo1.gif");
-		g.drawImage(fondo.getImage(), 0, 0, d.width, d.height, null);
-
+	
+	public JuegoDragon darJuego() {
+		return elJuego;
 	}
 	
 	public void nuevaPartida() {
-		vJuego.setVisible(true);
-		this.setVisible(false);
-		
+		setVisible(false);
+		vJuego = new VentanaJuego(this);
+		hiloCrear.start();
+		hiloMover.start();
 	}
+	
 	public void cargarPartida() {
 		
 	}
-	public void verPuntajes() {
-		
-	}
-	public Dragon darDragonAleatorio() {
-		return elJuego.darDragonAleatorio();
-	}	
 	
-	public PanelPrincipal getpPrincipal() {
-		return pPrincipal;
+	public void verPuntajes() {
+		setVisible(false);
+		vPuntajes = new VentanaPuntajes(this);
 	}
-	public VentanaJuego getvJuego() {
-		return vJuego;
-	}
+	
 	public void nivel() {
 		
 	}
 	
 	public void mover() {
-		HiloMover hilo = new HiloMover(this);
-		hilo.start();
+		
 	}
+	
+	
 	public static void main(String[] args) {
 		VentanaPrincipal principal = new VentanaPrincipal();
-		principal.setVisible(true);
-		
-
 	}
-
 }

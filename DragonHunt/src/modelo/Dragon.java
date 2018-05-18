@@ -7,7 +7,8 @@ public class Dragon {
 	public static int MINIMO_X = 0;
 	public static int MAXIMO_X = 1000;
 	public static int MINIMO_Y = 0;
-	public static int MAXIMO_Y = 500;
+	public static int MAXIMO_Y = 700;
+	public static int VALOR_PUNTAJE = 10;
 	// -----------------------------------------------------------------
     // Atributos
     // -----------------------------------------------------------------
@@ -28,8 +29,12 @@ public class Dragon {
 	 */
 	private int posicionY;
 	/**
-	 * El Dragón siguiente de la lista
+	 * 
 	 */
+	private boolean moviendoDerecha;
+	/**
+	 * El Dragón siguiente de la lista
+	 */	
 	private Dragon siguiente;
 	/**
 	 * El Dragón anterior de la lista
@@ -44,7 +49,8 @@ public class Dragon {
 		this.codigo = codigo;
 		this.rutaImagen = rutaImagen;		
 		posicionX = (int) (Math.random()*MAXIMO_X)+1;
-		posicionY = 100;
+		posicionY = MAXIMO_Y;
+		moviendoDerecha = true;
 	}
 	public int getCodigo() {
 		return codigo;
@@ -62,14 +68,21 @@ public class Dragon {
 	public void setPosicionX(int posicionX) {
 		this.posicionX += posicionX;
 	}
+	
 	public int getPosicionY() {
 		return posicionY;
 	}
 	public void setPosicionY(int posicionY) {
-		this.posicionY += posicionY;
+		this.posicionY -= posicionY;
 	}
 	public void setRutaImagen(String rutaImagen) {
 		this.rutaImagen = rutaImagen;
+	}	
+	public boolean isMoviendoDerecha() {
+		return moviendoDerecha;
+	}
+	public void setMoviendoDerecha(boolean moviendoDerecha) {
+		this.moviendoDerecha = moviendoDerecha;
 	}
 	public Dragon getSiguiente() {
 		return siguiente;
