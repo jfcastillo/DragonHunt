@@ -311,13 +311,69 @@ public class JuegoDragon {
 	 * @param drag Dragón que se va a eliminar
 	 */
 	public void eliminarDragon(Dragon drag) {
-		if (drag == primerDragon) {
+		if (numDragones == 1) {
+			primerDragon.setSiguiente(null);
+			primerDragon.setAnterior(null);
+			primerDragon = null;
+			numDragones--;			
+		}
+		else if (drag == primerDragon) {
 			primerDragon = primerDragon.getSiguiente();
-			ultimoDragon.setSiguiente(primerDragon);		
+			ultimoDragon.setSiguiente(primerDragon);
+			numDragones--;
 		}
 		else {
-			
+			Dragon anterior = drag.getAnterior();
+			if (anterior.getSiguiente() == ultimoDragon) {
+				anterior.setSiguiente(primerDragon);
+				ultimoDragon = anterior;				
+			}
+			else {
+				anterior.desconectarSiguiente();
+			}
+			numDragones--;
 		}
 	}
+	/**
+	 * Método para comprobar si existe un dragon en esa posición
+	 * @param x Posición X donde el jugador hizo click
+	 * @param y Posición Y donde el jugador hizo click
+	 * @return true si hay algun dragon en las coordenadas
+	 * 		   o false si no existe
+	 */	
+	public Dragon buscarDragon(int x, int y) {
+		if (primerDragon.getArea().contains(x,y)) {
+			return primerDragon;
+		}
+		else {
+			return buscarDragon(primerDragon.getSiguiente(), x, y);
+			
+		}		
+	}
+	public Dragon buscarDragon(Dragon drag, int x, int y) {
+		if (drag == null || drag.equals(primerDragon)) {
+			return null;
+		}
+		else {
+			if (drag.getArea().contains(x,y)) {
+				return drag;				
+			}
+			else {
+				return buscarDragon(drag.getSiguiente(), x, y);
+			}
+		}
+		
+	}
+	
+	public void calcularPuntaje(int x, int y) {
+		Dragon drag = buscarDragon(x, y);
+		if (drag != null) {
+			eliminarDragon(drag);
+			jugadorActual.aumentarPuntaje();
+			jugadorActual.aumentarDragonesAtrapados();
+			jugadorActual.disminuirMunicion();
+		}		
+	}
+	
 
 }

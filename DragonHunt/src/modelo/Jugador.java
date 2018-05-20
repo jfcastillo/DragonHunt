@@ -70,7 +70,13 @@ public class Jugador {
 	
 	public void disminuirPuntaje() {
 		puntaje -= 10;
-	}	
+	}
+	public void aumentarDragonesAtrapados() {
+		dragonesAtrapados++;
+	}
+	public void disminuirMunicion() {
+		municion--;
+	}
 	
 	public int getDragonesAtrapados() {
 		return dragonesAtrapados;

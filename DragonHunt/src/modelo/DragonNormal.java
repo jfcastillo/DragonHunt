@@ -11,6 +11,7 @@ public class DragonNormal extends Dragon{
 		if (isMoviendoDerecha()) {
 			super.setPosicionY(1);
 			super.setPosicionX(1);
+			setArea(getPosicionX(), getPosicionY());
 			if (getPosicionX() == 850) {
 				setRutaImagen("img/dragon_normal1.gif");
 				setMoviendoDerecha(false);
@@ -19,6 +20,7 @@ public class DragonNormal extends Dragon{
 		else {
 			super.setPosicionX(-1);
 			super.setPosicionY(1);
+			setArea(getPosicionX(), getPosicionY());
 			if (getPosicionX() == 0) {
 				setRutaImagen("img/dragon_normal.gif");
 				setMoviendoDerecha(true);

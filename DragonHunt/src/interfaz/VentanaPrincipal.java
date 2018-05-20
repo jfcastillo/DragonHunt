@@ -65,7 +65,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		pPrincipal = new PanelPrincipal(this);
 		elJuego = new JuegoDragon();
-		hiloMover = new HiloMover(this);
+		hiloMover = new HiloMover(this, elJuego);
 		hiloCrear = new HiloCrear(this, elJuego);
 		
 		add(pPrincipal);
@@ -74,9 +74,7 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-	public JuegoDragon darJuego() {
-		return elJuego;
-	}
+	
 	
 	public void nuevaPartida() {
 		setVisible(false);
@@ -101,7 +99,37 @@ public class VentanaPrincipal extends JFrame {
 	public void mover() {
 		
 	}
+	public String[] buscarInfoDragon(int i) {
+		String[] info =new String[3];
+		if (elJuego.buscarDragonCodigo(i)!=null) {
+			info[0] = elJuego.buscarDragonCodigo(i).getRutaImagen();
+			info[1] = elJuego.buscarDragonCodigo(i).getPosicionX()+"";
+			info[2] = elJuego.buscarDragonCodigo(i).getPosicionY()+"";
+		}
+		else {
+			info[0] = "";
+			info[1] = "";
+			info[2] = "";
+		}
+		return info;
+		
+	}
+	public void calcularPuntaje(int x, int y) {
+		elJuego.calcularPuntaje(x, y);
+	}
 	
+	public int darNumDragones() {
+		return elJuego.getNumDragones();
+	}
+	public int darMunicion() {
+		return elJuego.getJugadorActual().getMunicion();
+	}
+	public int darDragonesAtrapados() {
+		return elJuego.getJugadorActual().getDragonesAtrapados();
+	}
+	public String darFondoJuego() {
+		return elJuego.getFondoJuego();
+	}
 	
 	public static void main(String[] args) {
 		VentanaPrincipal principal = new VentanaPrincipal();

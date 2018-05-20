@@ -52,7 +52,7 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 		Dimension tamano = getSize();
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, tamano.width, tamano.height);
-		String fondo = vJuego.darVentanaPrincipal().darJuego().getFondoJuego();
+		String fondo = vJuego.darVentanaPrincipal().darFondoJuego();
 		ImageIcon imgFondo = new ImageIcon(fondo);
 		g.drawImage(imgFondo.getImage(), 0, 0, tamano.width, tamano.height, this);
 		//--------------------------------------------------------------------------
@@ -63,11 +63,11 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 		//Fuente--------------------------------------------------------------------
 		g.setFont(new Font("Arial", Font.BOLD, 30));
 		g.setColor(Color.WHITE);
-		g.drawString(vJuego.darVentanaPrincipal().darJuego().getJugadorActual().getDragonesAtrapados()+"", 120, 600);
+		g.drawString(vJuego.darVentanaPrincipal().darDragonesAtrapados()+"", 120, 600);
 		//--------------------------------------------------------------------------
 		
 		//Ícono munición------------------------------------------------------------
-		int municion = vJuego.darVentanaPrincipal().darJuego().getJugadorActual().getMunicion();
+		int municion = vJuego.darVentanaPrincipal().darMunicion();
 		int xMunicion = 160;
 		for (int i = 0; i < municion; i++) {
 			
@@ -78,13 +78,16 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 		//--------------------------------------------------------------------------
 		
 		//Pintar dragones-----------------------------------------------------------
-		int numD = vJuego.darVentanaPrincipal().darJuego().getNumDragones();
+		int numD = vJuego.darVentanaPrincipal().darNumDragones();
 		for (int i = 1; i <= numD; i++) {			
-			String ruta = vJuego.darVentanaPrincipal().darJuego().buscarDragonCodigo(i).getRutaImagen();
-			int x = vJuego.darVentanaPrincipal().darJuego().buscarDragonCodigo(i).getPosicionX();
-			int y = vJuego.darVentanaPrincipal().darJuego().buscarDragonCodigo(i).getPosicionY();
-			ImageIcon dragon = new ImageIcon(ruta);
-			g.drawImage(dragon.getImage(), x, y, this);
+			String ruta = vJuego.darVentanaPrincipal().buscarInfoDragon(i)[0];
+			if (ruta.length()>0) {
+				int x = Integer.parseInt(vJuego.darVentanaPrincipal().buscarInfoDragon(i)[1]);
+				int y = Integer.parseInt(vJuego.darVentanaPrincipal().buscarInfoDragon(i)[2]);
+				ImageIcon dragon = new ImageIcon(ruta);
+				g.drawImage(dragon.getImage(), x, y, this);
+			}
+			
 			//vJuego.darVentanaPrincipal().darJuego().buscarDragonCodigo(i).mover();
 		}	
 		//--------------------------------------------------------------------------
@@ -112,6 +115,7 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
+		vJuego.darVentanaPrincipal().calcularPuntaje(e.getX(),e.getY());
 		System.out.println(e.getX());
 		System.out.println(e.getY());
 //		pintarExplosion(e.getX(), e.getY());

@@ -31,7 +31,7 @@ public class VentanaJuego extends JFrame {
 		setLayout( new BorderLayout());
 		setResizable(false);
 		setVisible(true);
-		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setIconImage(vPrincipal.ICON.getImage());
 		pInteractivo = new PanelInteractivo(this);
 		pOpcionesJuego = new PanelOpcionesJuego(this);
