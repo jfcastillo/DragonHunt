@@ -289,22 +289,7 @@ public class JuegoDragon {
 		return buscarDragonCodigo(codeRamdon);
 	}
 	
-//	public void eliminarJugador(Jugador jug) {
-//		if (jug == primerJugador) {
-//			primerJugador = primerJugador.getSiguiente();
-//			ultimoJugador.setSiguiente(primerJugador);
-//		}
-//		else {
-//			Jugador anterior = buscarJugadorAnterior(jug);
-//			if (anterior.getSiguiente() == ultimoJugador) {
-//				anterior.setSiguiente(primerJugador);
-//				ultimoJugador = anterior;
-//			}
-//			else {
-//				anterior.desconectarSiguiente();
-//			}
-//		}
-//	}
+
 	/**
 	 * Método para eliminar un dragón cuando llegue al final o
 	 * cuando el jugador lo atrape
@@ -367,11 +352,12 @@ public class JuegoDragon {
 	
 	public void calcularPuntaje(int x, int y) {
 		Dragon drag = buscarDragon(x, y);
+		jugadorActual.disminuirMunicion();
 		if (drag != null) {
 			eliminarDragon(drag);
 			jugadorActual.aumentarPuntaje();
 			jugadorActual.aumentarDragonesAtrapados();
-			jugadorActual.disminuirMunicion();
+			
 		}		
 	}
 	

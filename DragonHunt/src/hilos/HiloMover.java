@@ -16,10 +16,12 @@ public class HiloMover extends Thread {
 	@Override
 	public void run() {
 		boolean salir = false;
+		
 		while (!salir) {
 			for (int i = 1; i <= elJuego.getNumDragones(); i++) {
 				if (elJuego.buscarDragonCodigo(i)!=null) {
 					elJuego.buscarDragonCodigo(i).mover();
+//					System.out.println(i);
 				}				
 			}
 			try {

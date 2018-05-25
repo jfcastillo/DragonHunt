@@ -11,8 +11,15 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.text.AttributedCharacterIterator;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 /**
@@ -101,6 +108,21 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 //		
 //	}
 	
+	public void reproducirDisparo() {
+		try {
+			AudioInputStream aus = AudioSystem.getAudioInputStream(new File("sonidos/tiro.wav").getAbsoluteFile());
+			Clip audio = AudioSystem.getClip();
+			audio.open(aus);
+			audio.start();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
@@ -115,6 +137,7 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
+		reproducirDisparo();
 		vJuego.darVentanaPrincipal().calcularPuntaje(e.getX(),e.getY());
 		System.out.println(e.getX());
 		System.out.println(e.getY());
