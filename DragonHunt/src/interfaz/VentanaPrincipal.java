@@ -114,6 +114,12 @@ public class VentanaPrincipal extends JFrame {
 		return info;
 		
 	}
+	/**
+	 * Método llamado al hacer click en el juego
+	 * Llamar al método del mundo encargado de calcular el puntaje si hizo click sobre un dragón
+	 * @param x Posición X del cursor
+	 * @param y Posición Y del cursor
+	 */
 	public void calcularPuntaje(int x, int y) {
 		elJuego.calcularPuntaje(x, y);
 	}

@@ -139,8 +139,8 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		reproducirDisparo();
 		vJuego.darVentanaPrincipal().calcularPuntaje(e.getX(),e.getY());
-		System.out.println(e.getX());
-		System.out.println(e.getY());
+//		System.out.println(e.getX());
+//		System.out.println(e.getY());
 //		pintarExplosion(e.getX(), e.getY());
 		
 	}

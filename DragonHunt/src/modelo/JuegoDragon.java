@@ -165,21 +165,7 @@ public class JuegoDragon {
 			}
 		}
 	}
-	
-//	private void imprimirEntre (Jugador reco)
-//    {
-//        if (reco != null)
-//        {    
-//            imprimirEntre (reco.getIzq());
-//            System.out.print(reco.getPuntaje() + " ");
-//            imprimirEntre (reco.getDer());
-//        }
-//    }
-//    public void imprimirEntre ()
-//    {
-//        imprimirEntre (jugadorRaiz);
-//        System.out.println();
-//    }
+
 	/**
 	 * Método para agregar un nuevo dragón a la lista.
 	 * @param drag El dragón a agregar.
@@ -210,48 +196,60 @@ public class JuegoDragon {
 	 * Crea un dragon aleatoriamente según el nivel de juego.
 	 */
 	public void crearDragonAleatorio(int i) {
-		if(nivel==0) {	
-			DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif");
+		int rangoMov = (2 - 1) + 1;
+		int random = (int) (Math.random() * rangoMov) + 1;
+		boolean moviendoDerecha = false;
+		String ruta = "";
+		if(nivel==0) {				
+			if (random == 1) {
+				moviendoDerecha = true;
+				ruta = "img/dragon_normal.gif";
+			}
+			else {
+				moviendoDerecha = false;
+				ruta = "img/dragon_normal1.gif";
+			}
+			DragonNormal normal = new DragonNormal(i, ruta, moviendoDerecha);
 			agregarDragon(normal);
 		}
 		else if(nivel==1) {
 			int codeRandom = (int) (Math.random()*2)+1;
 			if (codeRandom == 1) {
-				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif");
+				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
 				agregarDragon(normal);
 			}
 			else {
-				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif");
+				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
 				agregarDragon(superior);
 			}
 		}
 		else if(nivel==2) {
 			int codeRandom = (int) (Math.random()*3)+1;
 			if ( codeRandom == 1) {
-				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif");
+				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
 				agregarDragon(normal);
 			}
 			else if( codeRandom == 2 ){
-				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif");
+				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
 				agregarDragon(superior);
 			}
 			else {
-				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif");
+				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
 				agregarDragon(legendario);
 			}
 		}
 		else if(nivel==3) {
 			int codeRandom = (int) (Math.random()*3)+1;
 			if ( codeRandom == 1) {
-				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif");
+				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
 				agregarDragon(normal);
 			}
 			else if( codeRandom == 2 ){
-				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif");
+				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
 				agregarDragon(superior);
 			}
 			else {
-				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif");
+				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
 				agregarDragon(legendario);
 			}
 		}
@@ -300,7 +298,8 @@ public class JuegoDragon {
 			primerDragon.setSiguiente(null);
 			primerDragon.setAnterior(null);
 			primerDragon = null;
-			numDragones--;			
+			numDragones--;		
+			System.out.println("Hay un solo dragon "+numDragones);
 		}
 		else if (drag == primerDragon) {
 			primerDragon = primerDragon.getSiguiente();
@@ -323,8 +322,7 @@ public class JuegoDragon {
 	 * Método para comprobar si existe un dragon en esa posición
 	 * @param x Posición X donde el jugador hizo click
 	 * @param y Posición Y donde el jugador hizo click
-	 * @return true si hay algun dragon en las coordenadas
-	 * 		   o false si no existe
+	 * @return El dragón encontrado
 	 */	
 	public Dragon buscarDragon(int x, int y) {
 		if (primerDragon.getArea().contains(x,y)) {
@@ -335,6 +333,13 @@ public class JuegoDragon {
 			
 		}		
 	}
+	/**
+	 * Método recursivo para
+	 * @param drag
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Dragon buscarDragon(Dragon drag, int x, int y) {
 		if (drag == null || drag.equals(primerDragon)) {
 			return null;
@@ -352,6 +357,7 @@ public class JuegoDragon {
 	
 	public void calcularPuntaje(int x, int y) {
 		Dragon drag = buscarDragon(x, y);
+//		System.out.println(drag.getCodigo());
 		jugadorActual.disminuirMunicion();
 		if (drag != null) {
 			eliminarDragon(drag);

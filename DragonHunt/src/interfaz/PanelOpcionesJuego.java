@@ -73,6 +73,8 @@ public class PanelOpcionesJuego extends JPanel implements ActionListener{
 			
 		}
 		else if (comando == VOLVER_PRINCIPAL) {
+			vJuego.dispose();
+			vJuego.volverPrincipal();
 			try {
 				
 			}

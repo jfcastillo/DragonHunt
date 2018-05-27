@@ -2,12 +2,13 @@ package modelo;
 
 public class DragonNormal extends Dragon{
 
-	public DragonNormal(int codigo, String rutaImagen) {
-		super(codigo, rutaImagen);
+	public DragonNormal(int codigo, String rutaImagen, boolean moviendoDerecha) {
+		super(codigo, rutaImagen, moviendoDerecha);
 		
 	}
 	@Override
 	public void mover() {
+		movimientoAleatorio();
 		if (isMoviendoDerecha()) {
 			super.setPosicionY(1);
 			super.setPosicionX(1);
@@ -26,6 +27,17 @@ public class DragonNormal extends Dragon{
 				setMoviendoDerecha(true);
 			}
 		}		
+	}
+	
+	public void movimientoAleatorio() {
+		int rangoMov = (1000 - 1) + 1;
+		int random = (int) (Math.random() * rangoMov) + 1;
+		if (random <= 800) {
+			setMoviendoDerecha(true);
+		}
+		else {
+			setMoviendoDerecha(false);
+		}
 	}
 
 }

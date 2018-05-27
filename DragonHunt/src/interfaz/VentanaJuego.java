@@ -53,6 +53,6 @@ public class VentanaJuego extends JFrame {
 	}
 	
 	public void volverPrincipal() {
-		
+		vPrincipal.setVisible(true);
 	}
 }

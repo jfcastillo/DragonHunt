@@ -53,12 +53,16 @@ public class Dragon {
 	 * @param codigo Código con el que se va a identificar el Dragón
 	 * @param rutaImagen Ruta de la imagen que va a tener el Dragón
 	 */
-	public Dragon(int codigo, String rutaImagen) {
+	public Dragon(int codigo, String rutaImagen, boolean moviendoDerecha) {
 		this.codigo = codigo;
-		this.rutaImagen = rutaImagen;		
-		posicionX = (int) (Math.random()*MAXIMO_X)+1;
+		this.rutaImagen = rutaImagen;
+		this.moviendoDerecha = moviendoDerecha;
+		int rangoPosX = (MAXIMO_X - MINIMO_X) + 1;
+		posicionX = (int) (Math.random()*rangoPosX)+MINIMO_X;
 		posicionY = MAXIMO_Y;
-		moviendoDerecha = true;
+		
+		
+		
 		area = new Rectangle(posicionX, posicionY, 200, 177);
 	}
 	
