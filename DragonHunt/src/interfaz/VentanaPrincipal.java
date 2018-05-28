@@ -74,12 +74,15 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-	
+	public void crearDragon() {
+		elJuego.crearDragon();
+	}
 	
 	public void nuevaPartida() {
 		setVisible(false);
 		vJuego = new VentanaJuego(this);
-		hiloCrear.start();
+		crearDragon();
+//		hiloCrear.start();
 		hiloMover.start();
 	}
 	

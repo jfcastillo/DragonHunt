@@ -86,7 +86,7 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 		
 		//Pintar dragones-----------------------------------------------------------
 		int numD = vJuego.darVentanaPrincipal().darNumDragones();
-		for (int i = 1; i <= numD; i++) {			
+		for (int i = 0; i < numD; i++) {			
 			String ruta = vJuego.darVentanaPrincipal().buscarInfoDragon(i)[0];
 			if (ruta.length()>0) {
 				int x = Integer.parseInt(vJuego.darVentanaPrincipal().buscarInfoDragon(i)[1]);

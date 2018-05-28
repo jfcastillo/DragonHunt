@@ -48,6 +48,7 @@ public class JuegoDragon {
 		jugadorRaiz = null;
 		primerDragon = null;
 		ultimoDragon = null;
+		numDragones = 0;
 		nivel = 0;
 		fondo = "img/fondo_P.gif";
 	}
@@ -195,65 +196,65 @@ public class JuegoDragon {
 	/**
 	 * Crea un dragon aleatoriamente según el nivel de juego.
 	 */
-	public void crearDragonAleatorio(int i) {
-		int rangoMov = (2 - 1) + 1;
-		int random = (int) (Math.random() * rangoMov) + 1;
-		boolean moviendoDerecha = false;
-		String ruta = "";
-		if(nivel==0) {				
-			if (random == 1) {
-				moviendoDerecha = true;
-				ruta = "img/dragon_normal.gif";
-			}
-			else {
-				moviendoDerecha = false;
-				ruta = "img/dragon_normal1.gif";
-			}
-			DragonNormal normal = new DragonNormal(i, ruta, moviendoDerecha);
-			agregarDragon(normal);
-		}
-		else if(nivel==1) {
-			int codeRandom = (int) (Math.random()*2)+1;
-			if (codeRandom == 1) {
-				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-				agregarDragon(normal);
-			}
-			else {
-				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-				agregarDragon(superior);
-			}
-		}
-		else if(nivel==2) {
-			int codeRandom = (int) (Math.random()*3)+1;
-			if ( codeRandom == 1) {
-				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-				agregarDragon(normal);
-			}
-			else if( codeRandom == 2 ){
-				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-				agregarDragon(superior);
-			}
-			else {
-				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
-				agregarDragon(legendario);
-			}
-		}
-		else if(nivel==3) {
-			int codeRandom = (int) (Math.random()*3)+1;
-			if ( codeRandom == 1) {
-				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-				agregarDragon(normal);
-			}
-			else if( codeRandom == 2 ){
-				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-				agregarDragon(superior);
-			}
-			else {
-				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
-				agregarDragon(legendario);
-			}
-		}
-	}
+//	public void crearDragonAleatorio(int i) {
+//		int rangoMov = (2 - 1) + 1;
+//		int random = (int) (Math.random() * rangoMov) + 1;
+//		boolean moviendoDerecha = false;
+//		String ruta = "";
+//		if(nivel==0) {				
+//			if (random == 1) {
+//				moviendoDerecha = true;
+//				ruta = "img/dragon_normal.gif";
+//			}
+//			else {
+//				moviendoDerecha = false;
+//				ruta = "img/dragon_normal1.gif";
+//			}
+//			DragonNormal normal = new DragonNormal(i, ruta, moviendoDerecha);
+//			agregarDragon(normal);
+//		}
+//		else if(nivel==1) {
+//			int codeRandom = (int) (Math.random()*2)+1;
+//			if (codeRandom == 1) {
+//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
+//				agregarDragon(normal);
+//			}
+//			else {
+//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
+//				agregarDragon(superior);
+//			}
+//		}
+//		else if(nivel==2) {
+//			int codeRandom = (int) (Math.random()*3)+1;
+//			if ( codeRandom == 1) {
+//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
+//				agregarDragon(normal);
+//			}
+//			else if( codeRandom == 2 ){
+//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
+//				agregarDragon(superior);
+//			}
+//			else {
+//				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
+//				agregarDragon(legendario);
+//			}
+//		}
+//		else if(nivel==3) {
+//			int codeRandom = (int) (Math.random()*3)+1;
+//			if ( codeRandom == 1) {
+//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
+//				agregarDragon(normal);
+//			}
+//			else if( codeRandom == 2 ){
+//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
+//				agregarDragon(superior);
+//			}
+//			else {
+//				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
+//				agregarDragon(legendario);
+//			}
+//		}
+//	}
 	
 	public Dragon buscarDragonCodigo(int codigo) {
 		Dragon encontrado = null;
@@ -299,7 +300,6 @@ public class JuegoDragon {
 			primerDragon.setAnterior(null);
 			primerDragon = null;
 			numDragones--;		
-			System.out.println("Hay un solo dragon "+numDragones);
 		}
 		else if (drag == primerDragon) {
 			primerDragon = primerDragon.getSiguiente();
@@ -317,6 +317,7 @@ public class JuegoDragon {
 			}
 			numDragones--;
 		}
+//		drag.setEstaMuerto(true);
 	}
 	/**
 	 * Método para comprobar si existe un dragon en esa posición
@@ -363,9 +364,36 @@ public class JuegoDragon {
 			eliminarDragon(drag);
 			jugadorActual.aumentarPuntaje();
 			jugadorActual.aumentarDragonesAtrapados();
+			crearDragon();
 			
 		}		
 	}
 	
+	
+	
+	
+	
+	public void crearDragon() {
+		if (numDragones<5) {
+			int rangoMov = (2 - 1) + 1;
+			int random = (int) (Math.random() * rangoMov) + 1;
+			boolean moviendoDerecha = false;
+			String ruta = "";
+			if(nivel==0) {				
+				if (random == 1) {
+					moviendoDerecha = true;
+					ruta = "img/dragon_normal.gif";
+				}
+				else {
+					moviendoDerecha = false;
+					ruta = "img/dragon_normal1.gif";
+				}
+				DragonNormal normal = new DragonNormal(numDragones, ruta, moviendoDerecha);
+				agregarDragon(normal);
+			}
+			
+			
+		}
+	}
 
 }

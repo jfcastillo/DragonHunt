@@ -45,7 +45,7 @@ public class Jugador {
 		super();
 		this.nombre = nombre;
 		this.puntaje = puntaje;
-		municion = 10;
+		municion = 3;
 		izq = null;
 		der = null;
 	}

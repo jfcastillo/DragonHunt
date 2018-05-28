@@ -36,6 +36,10 @@ public class Dragon {
 	 * El movimiento del dragon, true si se está moviendo a la derecha.
 	 */
 	private boolean moviendoDerecha;
+	
+	private boolean moviendoArriba;
+	
+//	private boolean estaMuerto;
 	/**
 	 * 
 	 */
@@ -57,6 +61,8 @@ public class Dragon {
 		this.codigo = codigo;
 		this.rutaImagen = rutaImagen;
 		this.moviendoDerecha = moviendoDerecha;
+		moviendoArriba = true;
+//		estaMuerto = false;
 		int rangoPosX = (MAXIMO_X - MINIMO_X) + 1;
 		posicionX = (int) (Math.random()*rangoPosX)+MINIMO_X;
 		posicionY = MAXIMO_Y;
@@ -106,6 +112,24 @@ public class Dragon {
 	public void setMoviendoDerecha(boolean moviendoDerecha) {
 		this.moviendoDerecha = moviendoDerecha;
 	}
+	
+//	public boolean isEstaMuerto() {
+//		return estaMuerto;
+//	}
+//
+//	public void setEstaMuerto(boolean estaMuerto) {
+//		this.estaMuerto = estaMuerto;
+//	}
+	
+
+	public boolean isMoviendoArriba() {
+		return moviendoArriba;
+	}
+
+	public void setMoviendoArriba(boolean moviendoArriba) {
+		this.moviendoArriba = moviendoArriba;
+	}
+
 	public Dragon getSiguiente() {
 		return siguiente;
 	}
@@ -122,9 +146,29 @@ public class Dragon {
 	public void desconectarSiguiente() {
 		siguiente = siguiente.getSiguiente();
 	}
-	
 	public void mover() {
 		
+	}
+	
+	public void moverArribaDerecha() {
+		setPosicionX(1);
+		setPosicionY(1);
+		setArea(getPosicionX(), getPosicionY());
+	}
+	public void moverArribaIzquierda() {
+		setPosicionX(-1);
+		setPosicionY(1);
+		setArea(getPosicionX(), getPosicionY());
+	}
+	public void moverAbajoDerecha() {
+		setPosicionX(1);
+		setPosicionY(-1);
+		setArea(getPosicionX(), getPosicionY());
+	}
+	public void moverAbajoIzquierda() {
+		setPosicionX(-1);
+		setPosicionY(-1);
+		setArea(getPosicionX(), getPosicionY());
 	}
 	
 

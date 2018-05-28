@@ -18,14 +18,14 @@ public class HiloMover extends Thread {
 		boolean salir = false;
 		
 		while (!salir) {
-			for (int i = 1; i <= elJuego.getNumDragones(); i++) {
+			for (int i = 0; i < elJuego.getNumDragones(); i++) {
 				if (elJuego.buscarDragonCodigo(i)!=null) {
 					elJuego.buscarDragonCodigo(i).mover();
 //					System.out.println(i);
 				}				
 			}
 			try {
-				Thread.sleep(10);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {
 			
 				e.printStackTrace();

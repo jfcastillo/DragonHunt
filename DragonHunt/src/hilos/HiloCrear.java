@@ -18,7 +18,7 @@ public class HiloCrear extends Thread{
 	public void run() {
 		int i = 1;
 		while (i<=10) {
-			elJuego.crearDragonAleatorio(i);
+//			elJuego.crearDragonAleatorio(i);
 			i++;
 			try {
 				Thread.sleep(1000);
