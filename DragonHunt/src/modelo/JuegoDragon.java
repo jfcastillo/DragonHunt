@@ -329,10 +329,11 @@ public class JuegoDragon {
 	 * @param x Posición X donde el jugador hizo click
 	 * @param y Posición Y donde el jugador hizo click
 	 * @return El dragón encontrado
+	 * @throws DragonInexistenteException 
 	 */	
-	public Dragon buscarDragon(int x, int y) {
+	public Dragon buscarDragon(int x, int y) throws DragonInexistenteException {
 		if (primerDragon == null) {
-			return null;
+			throw new DragonInexistenteException();
 		}
 		else if (primerDragon.getArea().contains(x,y)) {
 			return primerDragon;
@@ -369,8 +370,9 @@ public class JuegoDragon {
 	 * si existe aumenta el puntaje.
 	 * @param x Posición X donde el jugador hizo click
 	 * @param y Posición Y donde el jugador hizo click
+	 * @throws DragonInexistenteException 
 	 */
-	public void calcularPuntaje(int x, int y) {
+	public void calcularPuntaje(int x, int y) throws DragonInexistenteException {
 		Dragon drag = buscarDragon(x, y);
 		jugadorActual.disminuirMunicion();
 		verificarDragonHuida(primerDragon);
@@ -449,6 +451,11 @@ public class JuegoDragon {
 			}
 		}
 	}
+	/**
+	 * Verifica si el dragón está vivo y si el jugador aún tiene munición.
+	 * Si se cumple la condicion, el dragón se va.
+	 * @param drag el dragon con el que se va a verificar
+	 */
 	public void verificarDragonHuida(Dragon drag) {
 		if ((drag.isMuerto()==false) && (jugadorActual.verificarMunicion())) {
 			drag.setSeFue(true);
@@ -457,7 +464,10 @@ public class JuegoDragon {
 			jugadorActual.setCantidadPerdidos(1);
 		}
 	}
-	
+	/**
+	 * Método para cambiar de nivel.
+	 * Cambia de nivel cuando atrapa 5 dragones.
+	 */
 	public void cambioDeNivel() {
 		setNivel();
 		jugadorActual.setDragonesAtrapados(0);

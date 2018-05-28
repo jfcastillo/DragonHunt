@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import hilos.*;
 import modelo.Dragon;
+import modelo.DragonInexistenteException;
 import modelo.JuegoDragon;
 /**
  * Clase principal de la interfaz
@@ -130,7 +131,11 @@ public class VentanaPrincipal extends JFrame {
 	 * @param y Posición Y del cursor
 	 */
 	public void calcularPuntaje(int x, int y) {
-		elJuego.calcularPuntaje(x, y);
+		try {
+			elJuego.calcularPuntaje(x, y);
+		} catch (DragonInexistenteException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int darNumDragones() {
