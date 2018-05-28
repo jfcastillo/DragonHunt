@@ -136,6 +136,9 @@ public class VentanaPrincipal extends JFrame {
 	public int darDragonesAtrapados() {
 		return elJuego.getJugadorActual().getDragonesAtrapados();
 	}
+	public int darPuntaje() {
+		return elJuego.getJugadorActual().getPuntaje();
+	}
 	public String darFondoJuego() {
 		return elJuego.getFondoJuego();
 	}

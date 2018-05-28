@@ -110,4 +110,12 @@ public class Jugador {
 	public void setDer(Jugador der) {
 		this.der = der;
 	}
+	
+	public boolean verificarMunicion() {
+		boolean verificar = false;
+		if (municion == 0) {
+			verificar = true;
+		}
+		return verificar;
+	}
 }

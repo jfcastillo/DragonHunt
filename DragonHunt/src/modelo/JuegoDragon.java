@@ -326,7 +326,10 @@ public class JuegoDragon {
 	 * @return El dragón encontrado
 	 */	
 	public Dragon buscarDragon(int x, int y) {
-		if (primerDragon.getArea().contains(x,y)) {
+		if (primerDragon == null) {
+			return null;
+		}
+		else if (primerDragon.getArea().contains(x,y)) {
 			return primerDragon;
 		}
 		else {
@@ -358,13 +361,18 @@ public class JuegoDragon {
 	
 	public void calcularPuntaje(int x, int y) {
 		Dragon drag = buscarDragon(x, y);
-//		System.out.println(drag.getCodigo());
 		jugadorActual.disminuirMunicion();
 		if (drag != null) {
 			eliminarDragon(drag);
 			jugadorActual.aumentarPuntaje();
 			jugadorActual.aumentarDragonesAtrapados();
-			crearDragon();
+			if (jugadorActual.getDragonesAtrapados() == 5) {
+				cambioDeNivel();
+			}
+			else {
+				crearDragon();
+			}
+			
 			
 		}		
 	}
@@ -374,7 +382,7 @@ public class JuegoDragon {
 	
 	
 	public void crearDragon() {
-		if (numDragones<5) {
+		if (jugadorActual.getDragonesAtrapados()<5) {
 			int rangoMov = (2 - 1) + 1;
 			int random = (int) (Math.random() * rangoMov) + 1;
 			boolean moviendoDerecha = false;
@@ -391,9 +399,26 @@ public class JuegoDragon {
 				DragonNormal normal = new DragonNormal(numDragones, ruta, moviendoDerecha);
 				agregarDragon(normal);
 			}
-			
-			
+			else if(nivel==1) {
+				int codeRandom = (int) (Math.random()*2)+1;
+				if (codeRandom == 1) {
+					DragonNormal normal = new DragonNormal(numDragones, "img/dragon_normal.gif", moviendoDerecha);
+					agregarDragon(normal);
+				}
+				else {
+					DragonSuperior superior = new DragonSuperior(numDragones, "img/dragon_superior.gif", moviendoDerecha);
+					agregarDragon(superior);
+				}
+			}
 		}
 	}
+	
+	public void cambioDeNivel() {
+		nivel++;
+		jugadorActual.setDragonesAtrapados(0);
+		crearDragon();
+	}
+	
+	
 
 }

@@ -71,7 +71,7 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 		//Fuente--------------------------------------------------------------------
 		g.setFont(new Font("Arial", Font.BOLD, 30));
 		g.setColor(Color.WHITE);
-		g.drawString(vJuego.darVentanaPrincipal().darDragonesAtrapados()+"", 120, 600);
+		g.drawString(vJuego.darVentanaPrincipal().darPuntaje()+"", 120, 600);
 		//--------------------------------------------------------------------------
 		
 		//Ícono munición------------------------------------------------------------

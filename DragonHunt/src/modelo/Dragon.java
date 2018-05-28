@@ -39,7 +39,7 @@ public class Dragon {
 	
 	private boolean moviendoArriba;
 	
-//	private boolean estaMuerto;
+	private boolean estaMuerto;
 	/**
 	 * 
 	 */
@@ -62,7 +62,7 @@ public class Dragon {
 		this.rutaImagen = rutaImagen;
 		this.moviendoDerecha = moviendoDerecha;
 		moviendoArriba = true;
-//		estaMuerto = false;
+		estaMuerto = false;
 		int rangoPosX = (MAXIMO_X - MINIMO_X) + 1;
 		posicionX = (int) (Math.random()*rangoPosX)+MINIMO_X;
 		posicionY = MAXIMO_Y;
@@ -113,13 +113,13 @@ public class Dragon {
 		this.moviendoDerecha = moviendoDerecha;
 	}
 	
-//	public boolean isEstaMuerto() {
-//		return estaMuerto;
-//	}
-//
-//	public void setEstaMuerto(boolean estaMuerto) {
-//		this.estaMuerto = estaMuerto;
-//	}
+	public boolean isEstaMuerto() {
+		return estaMuerto;
+	}
+
+	public void setEstaMuerto(boolean estaMuerto) {
+		this.estaMuerto = estaMuerto;
+	}
 	
 
 	public boolean isMoviendoArriba() {
