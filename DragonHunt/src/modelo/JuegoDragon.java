@@ -373,7 +373,9 @@ public class JuegoDragon {
 	public void calcularPuntaje(int x, int y) {
 		Dragon drag = buscarDragon(x, y);
 		jugadorActual.disminuirMunicion();
+		verificarDragonHuida(primerDragon);
 		if (drag != null) {
+			
 			if (jugadorActual.getMunicion()>0) {
 				jugadorActual.aumentarPuntaje(drag.VALOR_PUNTAJE);
 				eliminarDragon(drag);
@@ -408,12 +410,10 @@ public class JuegoDragon {
 			String ruta = "";
 			if(nivel==0) {				
 				if (random == 1) {
-					System.out.println(1);
 					moviendoDerecha = true;
 					ruta = "img/dragon_normal.gif";
 				}
 				else {
-					System.out.println(2);
 					moviendoDerecha = false;
 					ruta = "img/dragon_normal1.gif";
 				}
@@ -421,7 +421,6 @@ public class JuegoDragon {
 				agregarDragon(normal);
 			}
 			else if(nivel==1) {
-				System.out.println("nivel 1");
 				int randomMov = (int) (Math.random()*2)+1;
 				if (randomMov == 1) {
 					if (randomMov == 1) {
@@ -451,8 +450,11 @@ public class JuegoDragon {
 		}
 	}
 	public void verificarDragonHuida(Dragon drag) {
-		if (drag.isMuerto()==false && jugadorActual.verificarMunicion()) {
+		if ((drag.isMuerto()==false) && (jugadorActual.verificarMunicion())) {
 			drag.setSeFue(true);
+//			eliminarDragon(drag);
+//			jugadorActual.reiniciarMunicion();
+			jugadorActual.setCantidadPerdidos(1);
 		}
 	}
 	

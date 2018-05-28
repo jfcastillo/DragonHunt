@@ -47,6 +47,8 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	private HiloCrear hiloCrear;
 	
+	private HiloJuego hiloJuego;
+	
 	//CONSTRUCTOR
 	/**
 	 * Método constructor de la clase.
@@ -67,6 +69,7 @@ public class VentanaPrincipal extends JFrame {
 		elJuego = new JuegoDragon();
 		hiloMover = new HiloMover(this, elJuego);
 		hiloCrear = new HiloCrear(this, elJuego);
+		hiloJuego = new HiloJuego(this, elJuego);
 		
 		add(pPrincipal);
 		
@@ -84,6 +87,7 @@ public class VentanaPrincipal extends JFrame {
 		crearDragon();
 //		hiloCrear.start();
 		hiloMover.start();
+		hiloJuego.start();
 	}
 	
 	public void cargarPartida() {
@@ -103,16 +107,18 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	public String[] buscarInfoDragon(int i) {
-		String[] info =new String[3];
+		String[] info =new String[4];
 		if (elJuego.buscarDragonCodigo(i)!=null) {
 			info[0] = elJuego.buscarDragonCodigo(i).getRutaImagen();
 			info[1] = elJuego.buscarDragonCodigo(i).getPosicionX()+"";
 			info[2] = elJuego.buscarDragonCodigo(i).getPosicionY()+"";
+			info[3] = elJuego.buscarDragonCodigo(i).isSeFue()+"";
 		}
 		else {
 			info[0] = "";
 			info[1] = "";
 			info[2] = "";
+			info[3] = "";
 		}
 		return info;
 		

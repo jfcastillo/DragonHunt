@@ -99,9 +99,14 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 			if (ruta.length()>0) {
 				int x = Integer.parseInt(vJuego.darVentanaPrincipal().buscarInfoDragon(i)[1]);
 				int y = Integer.parseInt(vJuego.darVentanaPrincipal().buscarInfoDragon(i)[2]);
+				String seFue = vJuego.darVentanaPrincipal().buscarInfoDragon(i)[3]; 
 				ImageIcon dragon = new ImageIcon(ruta);
 				g.drawImage(dragon.getImage(), x, y, this);
-				
+				if (seFue.equals("true")) {
+					g.setFont(new Font("Arial", Font.BOLD, 30));
+					g.setColor(Color.WHITE);
+					g.drawString("Se fué", tamano.width/2, tamano.height/2);
+				}
 			}
 			
 			//vJuego.darVentanaPrincipal().darJuego().buscarDragonCodigo(i).mover();
@@ -119,10 +124,13 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 	
 	public void reproducirDisparo() {
 		try {
-			AudioInputStream aus = AudioSystem.getAudioInputStream(new File("sonidos/tiro.wav").getAbsoluteFile());
-			Clip audio = AudioSystem.getClip();
-			audio.open(aus);
-			audio.start();
+			if (vJuego.darVentanaPrincipal().darMunicion()>0) {
+				AudioInputStream aus = AudioSystem.getAudioInputStream(new File("sonidos/tiro.wav").getAbsoluteFile());
+				Clip audio = AudioSystem.getClip();
+				audio.open(aus);
+				audio.start();
+			}
+			
 		} catch (UnsupportedAudioFileException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

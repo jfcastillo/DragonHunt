@@ -20,6 +20,11 @@ public class Jugador {
 	 */	
 	private int dragonesAtrapados;
 	/**
+	 * Cantidad de dragones que no ha capturado el jugador
+	 */
+	private int cantidadPerdidos;
+	
+	/**
 	 * Munición actual del jugador
 	 */
 	private int municion;
@@ -114,6 +119,7 @@ public class Jugador {
 	 * Método para verificar la munición restante del jugador
 	 * @return false si aún tiene munición, o verdadero si se le acabó la munición.
 	 */
+	
 	public boolean verificarMunicion() {
 		boolean verificar = false;
 		if (municion == 0) {
@@ -121,6 +127,18 @@ public class Jugador {
 		}
 		return verificar;
 	}
+	public int getCantidadPerdidos() {
+		return cantidadPerdidos;
+	}
+
+	public void setCantidadPerdidos(int cantidadPerdidos) {
+		this.cantidadPerdidos += cantidadPerdidos;
+	}
+
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
+	}
+
 	/**
 	 * Método para recargar la munición agregandole 3.
 	 */
