@@ -7,104 +7,75 @@ public class DragonNormal extends Dragon{
 		
 	}
 	@Override
-//	public void mover() {
-////		movimientoAleatorio();
-//		if (isMoviendoDerecha()) {
-//			super.setPosicionY(1);
-//			super.setPosicionX(2);
-//			setArea(getPosicionX(), getPosicionY());
-//			if (getPosicionX() == 850) {
-//				setRutaImagen("img/dragon_normal1.gif");
-//				setMoviendoDerecha(false);
-//			}
-//		}
-//		else {
-//			super.setPosicionX(-1);
-//			super.setPosicionY(1);
-//			setArea(getPosicionX(), getPosicionY());
-//			if (getPosicionX() == 0) {
-//				setRutaImagen("img/dragon_normal.gif");
-//				setMoviendoDerecha(true);
-//			}
-//		}		
-//	}
 	public void mover() {
-		//Arriba a la derecha
+		// Arriba a la derecha
 		if (isMoviendoArriba() && isMoviendoDerecha()) {
 			moverArribaDerecha();
 			if (getPosicionX() == 850) {
 				setRutaImagen("img/dragon_normal1.gif");
 				setMoviendoDerecha(false);
-			}
-			else if (getPosicionY() == 0) {
+			} else if (getPosicionY() == 0) {
 				setRutaImagen("img/dragon_normal.gif");
 				setMoviendoArriba(false);
 			}
-			
+
 		}
-		//Abajo a la derecha
-		else if(isMoviendoArriba() == false && isMoviendoDerecha()) {
+		// Abajo a la derecha
+		else if (isMoviendoArriba() == false && isMoviendoDerecha()) {
 			moverAbajoDerecha();
 			if (getPosicionX() == 850) {
 				setRutaImagen("img/dragon_normal1.gif");
 				setMoviendoDerecha(false);
-			}
-			else if (getPosicionY() == 550) {
+			} else if (getPosicionY() == 550) {
 				setMoviendoArriba(true);
 			}
 		}
-		//Arriba izquierda
-		else if(isMoviendoArriba() && isMoviendoDerecha() == false) {
+		// Arriba izquierda
+		else if (isMoviendoArriba() && isMoviendoDerecha() == false) {
 			moverArribaIzquierda();
 			if (getPosicionY() == 0) {
 				setMoviendoArriba(false);
-			}
-			else if (getPosicionX() == 0) {
+			} else if (getPosicionX() == 0) {
 				setMoviendoDerecha(true);
 				setRutaImagen("img/dragon_normal.gif");
 			}
 		}
-		//Abajo izquierda
+		// Abajo izquierda
 		else {
 			moverAbajoIzquierda();
 			if (getPosicionY() == 550) {
 				setMoviendoArriba(true);
-			}
-			else if (getPosicionX() == 0) {
+			} else if (getPosicionX() == 0) {
 				setMoviendoDerecha(true);
 				setRutaImagen("img/dragon_normal.gif");
 			}
-			
+
 		}
-		
+
 	}
-	
-	public void moviendoArriba() {
-		if (isMoviendoArriba()) {
-			super.setPosicionY(1);
-			super.setPosicionX(2);
-			setArea(getPosicionX(), getPosicionY());
-			if (getPosicionY() == 150) {
-				setMoviendoArriba(false);
-				if (isMoviendoDerecha()) {
-					setMoviendoDerecha(false);
-				}
-				else {
-					setMoviendoDerecha(true);
-				}
-			}
-		}
+
+	public void moverArribaDerecha() {
+		setPosicionX(1);
+		setPosicionY(1);
+		setArea(getPosicionX(), getPosicionY());
 	}
-	
-	public void movimientoAleatorio() {
-		int rangoMov = (1000 - 1) + 1;
-		int random = (int) (Math.random() * rangoMov) + 1;
-		if (random <= 800) {
-			setMoviendoDerecha(true);
-		}
-		else {
-			setMoviendoDerecha(false);
-		}
+
+	public void moverArribaIzquierda() {
+		setPosicionX(-1);
+		setPosicionY(1);
+		setArea(getPosicionX(), getPosicionY());
+	}
+
+	public void moverAbajoDerecha() {
+		setPosicionX(1);
+		setPosicionY(-1);
+		setArea(getPosicionX(), getPosicionY());
+	}
+
+	public void moverAbajoIzquierda() {
+		setPosicionX(-1);
+		setPosicionY(-1);
+		setArea(getPosicionX(), getPosicionY());
 	}
 
 }

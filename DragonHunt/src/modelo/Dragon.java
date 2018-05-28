@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import javax.swing.GroupLayout.SequentialGroup;
 
-public class Dragon {
+public abstract class Dragon implements Movible{
 	// -----------------------------------------------------------------
     // Constantes
     // -----------------------------------------------------------------
@@ -66,9 +66,6 @@ public class Dragon {
 		int rangoPosX = (MAXIMO_X - MINIMO_X) + 1;
 		posicionX = (int) (Math.random()*rangoPosX)+MINIMO_X;
 		posicionY = MAXIMO_Y;
-		
-		
-		
 		area = new Rectangle(posicionX, posicionY, 200, 177);
 	}
 	
@@ -146,30 +143,8 @@ public class Dragon {
 	public void desconectarSiguiente() {
 		siguiente = siguiente.getSiguiente();
 	}
-	public void mover() {
-		
-	}
 	
-	public void moverArribaDerecha() {
-		setPosicionX(1);
-		setPosicionY(1);
-		setArea(getPosicionX(), getPosicionY());
-	}
-	public void moverArribaIzquierda() {
-		setPosicionX(-1);
-		setPosicionY(1);
-		setArea(getPosicionX(), getPosicionY());
-	}
-	public void moverAbajoDerecha() {
-		setPosicionX(1);
-		setPosicionY(-1);
-		setArea(getPosicionX(), getPosicionY());
-	}
-	public void moverAbajoIzquierda() {
-		setPosicionX(-1);
-		setPosicionY(-1);
-		setArea(getPosicionX(), getPosicionY());
-	}
+
 	
 
 }

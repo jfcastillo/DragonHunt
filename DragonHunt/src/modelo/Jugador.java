@@ -64,8 +64,8 @@ public class Jugador {
 		return puntaje;
 	}
 	
-	public void aumentarPuntaje() {
-		puntaje += 10;
+	public void aumentarPuntaje(int puntaje) {
+		this.puntaje += puntaje;
 	}
 	
 	public void disminuirPuntaje() {
@@ -117,5 +117,8 @@ public class Jugador {
 			verificar = true;
 		}
 		return verificar;
+	}
+	public void reiniciarMunicion() {
+		municion = 3;
 	}
 }

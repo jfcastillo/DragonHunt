@@ -29,7 +29,7 @@ public class VentanaJuego extends JFrame {
 		setTitle("Dragon Hunt");
 		setSize(1000, 700);
 		setLayout( new BorderLayout());
-		setResizable(false);
+//		setResizable(false);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setIconImage(vPrincipal.ICON.getImage());

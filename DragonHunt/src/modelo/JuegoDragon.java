@@ -255,7 +255,12 @@ public class JuegoDragon {
 //			}
 //		}
 //	}
-	
+	/**
+	 * Método para recorrer la lista enlazada de dragones y buscar un dragón con un codigo,
+	 * para usarlo en el movimiento del dragón
+	 * @param codigo del dragón que se va a buscar
+	 * @return El dragón encontrado
+	 */
 	public Dragon buscarDragonCodigo(int codigo) {
 		Dragon encontrado = null;
 		Dragon actual = primerDragon;
@@ -283,10 +288,10 @@ public class JuegoDragon {
 		
 		return encontrado;
 	}
-	public Dragon darDragonAleatorio() {		
-		int codeRamdon = (int) (Math.random()*3)+1;
-		return buscarDragonCodigo(codeRamdon);
-	}
+//	public Dragon darDragonAleatorio() {		
+//		int codeRamdon = (int) (Math.random()*3)+1;
+//		return buscarDragonCodigo(codeRamdon);
+//	}
 	
 
 	/**
@@ -338,11 +343,11 @@ public class JuegoDragon {
 		}		
 	}
 	/**
-	 * Método recursivo para
-	 * @param drag
-	 * @param x
-	 * @param y
-	 * @return
+	 * Método recursivo para buscar un dragón
+	 * @param drag El dragón que se usará para avanzar en la recusividad
+	 * @param x Posición X donde el jugador hizo click
+	 * @param y Posición Y donde el jugador hizo click
+	 * @return El dragón encontrado
 	 */
 	public Dragon buscarDragon(Dragon drag, int x, int y) {
 		if (drag == null || drag.equals(primerDragon)) {
@@ -358,41 +363,54 @@ public class JuegoDragon {
 		}
 		
 	}
-	
+	/**
+	 * Método llamado al hacer click en el panel para capturar un dragón
+	 * Busca si existe un dragón en las posiciones x y y donde hizo click, 
+	 * si existe aumenta el puntaje.
+	 * @param x Posición X donde el jugador hizo click
+	 * @param y Posición Y donde el jugador hizo click
+	 */
 	public void calcularPuntaje(int x, int y) {
 		Dragon drag = buscarDragon(x, y);
 		jugadorActual.disminuirMunicion();
 		if (drag != null) {
+			jugadorActual.aumentarPuntaje(drag.VALOR_PUNTAJE);
 			eliminarDragon(drag);
-			jugadorActual.aumentarPuntaje();
 			jugadorActual.aumentarDragonesAtrapados();
+			jugadorActual.reiniciarMunicion();		
 			if (jugadorActual.getDragonesAtrapados() == 5) {
 				cambioDeNivel();
 			}
 			else {
 				crearDragon();
-			}
+			}		
+		}
+		else if (jugadorActual.getMunicion() == 0) {
 			
-			
-		}		
+		}
 	}
 	
 	
 	
 	
-	
+	/**
+	 * Método para crear un dragón de acuerdo al nivel en el que se encuentre.
+	 */
 	public void crearDragon() {
 		if (jugadorActual.getDragonesAtrapados()<5) {
-			int rangoMov = (2 - 1) + 1;
-			int random = (int) (Math.random() * rangoMov) + 1;
+//			int rangoMov = (2 - 1) + 1;
+//			int random = (int) (Math.random() * rangoMov) + 1;
 			boolean moviendoDerecha = false;
+			int random = (int) (Math.random()*2)+1;
 			String ruta = "";
 			if(nivel==0) {				
 				if (random == 1) {
+					System.out.println(1);
 					moviendoDerecha = true;
 					ruta = "img/dragon_normal.gif";
 				}
 				else {
+					System.out.println(2);
 					moviendoDerecha = false;
 					ruta = "img/dragon_normal1.gif";
 				}
@@ -400,13 +418,30 @@ public class JuegoDragon {
 				agregarDragon(normal);
 			}
 			else if(nivel==1) {
-				int codeRandom = (int) (Math.random()*2)+1;
-				if (codeRandom == 1) {
-					DragonNormal normal = new DragonNormal(numDragones, "img/dragon_normal.gif", moviendoDerecha);
+				System.out.println("nivel 1");
+				int randomMov = (int) (Math.random()*2)+1;
+				if (randomMov == 1) {
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_normal.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_normal1.gif";
+					}
+					DragonNormal normal = new DragonNormal(numDragones, ruta, moviendoDerecha);
 					agregarDragon(normal);
 				}
 				else {
-					DragonSuperior superior = new DragonSuperior(numDragones, "img/dragon_superior.gif", moviendoDerecha);
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_superior.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_superior1.gif";
+					}
+					DragonSuperior superior = new DragonSuperior(numDragones, ruta, moviendoDerecha);
 					agregarDragon(superior);
 				}
 			}
@@ -414,11 +449,10 @@ public class JuegoDragon {
 	}
 	
 	public void cambioDeNivel() {
-		nivel++;
+		setNivel();
 		jugadorActual.setDragonesAtrapados(0);
 		crearDragon();
 	}
-	
 	
 
 }
