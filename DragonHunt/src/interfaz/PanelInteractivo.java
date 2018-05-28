@@ -1,13 +1,16 @@
 package interfaz;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.ImageObserver;
@@ -47,6 +50,10 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 		vJuego = ventana;
 		setPreferredSize( new Dimension(1000, 670) );
 		addMouseListener(this);
+		ImageIcon puntero = new ImageIcon("img/puntero.png");
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Cursor cursor = tk.createCustomCursor(puntero.getImage(), new Point (2,2), "cursor");
+		this.setCursor(cursor);
 	}
 	
 	//	MÉTODOS
@@ -94,6 +101,7 @@ public class PanelInteractivo extends JPanel implements MouseListener{
 				int y = Integer.parseInt(vJuego.darVentanaPrincipal().buscarInfoDragon(i)[2]);
 				ImageIcon dragon = new ImageIcon(ruta);
 				g.drawImage(dragon.getImage(), x, y, this);
+				
 			}
 			
 			//vJuego.darVentanaPrincipal().darJuego().buscarDragonCodigo(i).mover();

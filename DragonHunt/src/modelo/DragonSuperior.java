@@ -5,6 +5,7 @@ public class DragonSuperior extends Dragon {
 
 	public DragonSuperior(int codigo, String rutaImagen, boolean moviendoDerecha) {
 		super(codigo, rutaImagen, moviendoDerecha);
+		velocidad = 2;
 	}
 
 	public void mover() {

@@ -110,7 +110,10 @@ public class Jugador {
 	public void setDer(Jugador der) {
 		this.der = der;
 	}
-	
+	/**
+	 * Método para verificar la munición restante del jugador
+	 * @return false si aún tiene munición, o verdadero si se le acabó la munición.
+	 */
 	public boolean verificarMunicion() {
 		boolean verificar = false;
 		if (municion == 0) {
@@ -118,6 +121,9 @@ public class Jugador {
 		}
 		return verificar;
 	}
+	/**
+	 * Método para recargar la munición agregandole 3.
+	 */
 	public void reiniciarMunicion() {
 		municion = 3;
 	}

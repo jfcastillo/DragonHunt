@@ -374,16 +374,19 @@ public class JuegoDragon {
 		Dragon drag = buscarDragon(x, y);
 		jugadorActual.disminuirMunicion();
 		if (drag != null) {
-			jugadorActual.aumentarPuntaje(drag.VALOR_PUNTAJE);
-			eliminarDragon(drag);
-			jugadorActual.aumentarDragonesAtrapados();
-			jugadorActual.reiniciarMunicion();		
-			if (jugadorActual.getDragonesAtrapados() == 5) {
-				cambioDeNivel();
+			if (jugadorActual.getMunicion()>0) {
+				jugadorActual.aumentarPuntaje(drag.VALOR_PUNTAJE);
+				eliminarDragon(drag);
+				jugadorActual.aumentarDragonesAtrapados();
+				jugadorActual.reiniciarMunicion();		
+				if (jugadorActual.getDragonesAtrapados() == 5) {
+					cambioDeNivel();
+				}
+				else {
+					crearDragon();
+				}
 			}
-			else {
-				crearDragon();
-			}		
+					
 		}
 		else if (jugadorActual.getMunicion() == 0) {
 			
@@ -445,6 +448,11 @@ public class JuegoDragon {
 					agregarDragon(superior);
 				}
 			}
+		}
+	}
+	public void verificarDragonHuida(Dragon drag) {
+		if (drag.isMuerto()==false && jugadorActual.verificarMunicion()) {
+			drag.setSeFue(true);
 		}
 	}
 	
