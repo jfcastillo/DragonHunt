@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 */
 public class PanelInteractivo extends JPanel implements MouseListener{
 	
+	/* Falta procesar el fin de la ola de dragones */
 	//CONSTANTES
 	public static final ImageIcon ICONO_MUNICION = new ImageIcon("img/municion.png");
 	
