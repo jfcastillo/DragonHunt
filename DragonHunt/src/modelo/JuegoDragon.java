@@ -331,9 +331,9 @@ public class JuegoDragon {
 	 * @return El dragón encontrado
 	 * @throws DragonInexistenteException 
 	 */	
-	public Dragon buscarDragon(int x, int y) throws DragonInexistenteException {
+	public Dragon buscarDragon(int x, int y)  {
 		if (primerDragon == null) {
-			throw new DragonInexistenteException();
+			return null;
 		}
 		else if (primerDragon.getArea().contains(x,y)) {
 			return primerDragon;
@@ -349,8 +349,9 @@ public class JuegoDragon {
 	 * @param x Posición X donde el jugador hizo click
 	 * @param y Posición Y donde el jugador hizo click
 	 * @return El dragón encontrado
+	 * @throws DragonInexistenteException  si el dragón no existe
 	 */
-	public Dragon buscarDragon(Dragon drag, int x, int y) {
+	public Dragon buscarDragon(Dragon drag, int x, int y)  {
 		if (drag == null || drag.equals(primerDragon)) {
 			return null;
 		}

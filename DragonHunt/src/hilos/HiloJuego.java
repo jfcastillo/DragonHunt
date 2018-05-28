@@ -16,7 +16,7 @@ public class HiloJuego extends Thread{
 		boolean salir = false;
 		while (!salir) {
 			//No eliminar este syso, sino, se daña.
-			System.out.println("h");
+//			System.out.println("h");
 			if (elJuego.getPrimerDragon().isSeFue()) {
 				
 				try {
