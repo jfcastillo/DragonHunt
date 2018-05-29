@@ -11,6 +11,7 @@ import hilos.*;
 import modelo.Dragon;
 import modelo.DragonInexistenteException;
 import modelo.JuegoDragon;
+import modelo.NoExisteException;
 /**
  * Clase principal de la interfaz
  * @author Felipe Castillo && Mayumi Tamura
@@ -99,8 +100,18 @@ public class VentanaPrincipal extends JFrame {
 		elJuego.guardarPuntaje();
 	}
 	
-	public void cargarPartida() {
-		
+	public void cargarPartida(String nick) {
+		elJuego = new JuegoDragon();
+		elJuego.cargarUnaPartida(nick);
+		setVisible(false);
+		vJuego = new VentanaJuego(this);
+		hiloMover = new HiloMover(this, elJuego);
+		hiloCrear = new HiloCrear(this, elJuego);
+		hiloJuego = new HiloJuego(this, elJuego);
+		hiloGuardar = new HiloGuardar(this, elJuego);
+		hiloMover.start();
+		hiloJuego.start();
+		hiloGuardar.start();
 	}
 	
 	public void verPuntajes() {
@@ -126,29 +137,26 @@ public class VentanaPrincipal extends JFrame {
 		JOptionPane.showMessageDialog(this, "Has perdido");
 	}
 	
-	public void nivel() {
-		
-	}
-	
-	public void mover() {
-		
-	}
 	public String[] buscarInfoDragon(int i) {
 		String[] info =new String[4];
-		if (elJuego.buscarDragonCodigo(i)!=null) {
-			info[0] = elJuego.buscarDragonCodigo(i).getRutaImagen();
-			info[1] = elJuego.buscarDragonCodigo(i).getPosicionX()+"";
-			info[2] = elJuego.buscarDragonCodigo(i).getPosicionY()+"";
-			info[3] = elJuego.buscarDragonCodigo(i).isSeFue()+"";
+		try {
+			if (elJuego.buscarDragonCodigo(i)!=null) {
+				info[0] = elJuego.buscarDragonCodigo(i).getRutaImagen();
+				info[1] = elJuego.buscarDragonCodigo(i).getPosicionX()+"";
+				info[2] = elJuego.buscarDragonCodigo(i).getPosicionY()+"";
+				info[3] = elJuego.buscarDragonCodigo(i).isSeFue()+"";
+			}
+			else {
+				info[0] = "";
+				info[1] = "";
+				info[2] = "";
+				info[3] = "";
+			}
 		}
-		else {
-			info[0] = "";
-			info[1] = "";
-			info[2] = "";
-			info[3] = "";
+		catch(NoExisteException ne) {
+			ne.getMessage();
 		}
 		return info;
-		
 	}
 	/**
 	 * Método llamado al hacer click en el juego
@@ -199,7 +207,18 @@ public class VentanaPrincipal extends JFrame {
 		vPuntajes.cambiarPuntajes(datos);
 		vPuntajes.darPanelPuntajes().repaint();
 	}
+	
+	public void guardar(String n) {
+		elJuego.setJugadorActual(n);
+		elJuego.guardarPartida();
+	}
+	public String darPodio() {
+		return elJuego.darInfoPodio();
+	}
+	
 	public static void main(String[] args) {
 		VentanaPrincipal principal = new VentanaPrincipal();
 	}
+
+
 }

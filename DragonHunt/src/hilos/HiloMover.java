@@ -3,6 +3,7 @@ package hilos;
 import interfaz.VentanaPrincipal;
 import modelo.Dragon;
 import modelo.JuegoDragon;
+import modelo.NoExisteException;
 
 public class HiloMover extends Thread {
 	private int velocidad;
@@ -55,7 +56,9 @@ public class HiloMover extends Thread {
 		
 		while (!detener) {
 			int i = 0;
-			Dragon drag = elJuego.buscarDragonCodigo(i);
+			Dragon drag;
+			try {
+				drag = elJuego.buscarDragonCodigo(i);
 			for (; i < elJuego.getNumDragones(); i++) {
 				if (drag!=null) {
 					drag.mover();
@@ -70,6 +73,11 @@ public class HiloMover extends Thread {
 					e.printStackTrace();
 				}
 			}
+			} 
+			catch (NoExisteException e1) {
+				e1.getMessage();
+			}
+
 			
 			
 		}

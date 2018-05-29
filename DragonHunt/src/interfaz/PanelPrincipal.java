@@ -12,6 +12,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class PanelPrincipal extends JPanel implements ActionListener {
@@ -137,7 +138,8 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		}
 		else if (comando == CARGAR_PARTIDA) {
 			try {
-				vPrincipal.cargarPartida();
+				String nick = JOptionPane.showInputDialog("Ingrese su nombre para cargar partida: ");
+				vPrincipal.cargarPartida(nick);
 			}
 			catch(Exception e2) {
 				System.out.println(e2.getMessage());
