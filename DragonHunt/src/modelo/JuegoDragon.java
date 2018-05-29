@@ -160,6 +160,7 @@ public class JuegoDragon {
 	 */
 	public void agregarJugador(String nombre, int puntaje) {
 		Jugador nuevo = new Jugador(nombre, puntaje);
+		datos.add(nuevo);
 		if(jugadorRaiz==null) {
 			jugadorRaiz = nuevo;
 		} 
@@ -357,7 +358,6 @@ public class JuegoDragon {
 		}
 		else {
 			return buscarDragon(primerDragon.getSiguiente(), x, y);
-			
 		}		
 	}
 	/**
@@ -379,7 +379,6 @@ public class JuegoDragon {
 				return buscarDragon(drag.getSiguiente(), x, y);
 			}
 		}
-		
 	}
 	/**
 	 * Método llamado al hacer click en el panel para capturar un dragón
@@ -406,8 +405,7 @@ public class JuegoDragon {
 				else {
 					crearDragon();
 				}
-			}
-					
+			}	
 		}
 		else if (jugadorActual.getMunicion() == 0) {
 			
@@ -484,16 +482,27 @@ public class JuegoDragon {
 	 */
 	public void cambioDeNivel() {
 		setNivel();
+		jugadorActual.setNivel();
 		jugadorActual.setDragonesAtrapados(0);
 		crearDragon();
 	}
-	
+	/**
+	 * Permite la serialización de los jugadores.
+	 * Guarda el árbol de jugadores, arrayList datos y árbol podio en diferentes archivos.
+	 */
 	public void guardarPartida() {
 		agregarJugador(jugadorActual.getNombre(), jugadorActual.getPuntaje());
+		datos.add(jugadorActual);
 		try {
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("baseDeDatos/datosJuego"));
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("archivos/datosArbol"));
 			out.writeObject(jugadorRaiz);
 			out.close();
+			ObjectOutputStream out2 = new ObjectOutputStream(new FileOutputStream("archivos/datosLista"));
+			out2.writeObject(datos);
+			out2.close();
+			ObjectOutputStream out3 = new ObjectOutputStream(new FileOutputStream("archivos/datosPodio"));
+			out3.writeObject(raizPodio);
+			out3.close();
 		}
 		catch(FileNotFoundException ex) {
 			ex.printStackTrace();
@@ -502,18 +511,35 @@ public class JuegoDragon {
 			ex.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Permite cargar una partida según sea el nombre indicado como parámetro.
+	 * @param nombreJugador El jugador cuya partida quiere ser cargada.
+	 */
 	public void cargarUnaPartida(String nombreJugador) {
-		Jugador j = buscarJugadorXNombre(nombreJugador);
-		jugadorActual = j;
-		nivel = jugadorActual.getNivel();
+		try {
+			Jugador j = buscarJugadorXNombre(nombreJugador);
+			jugadorActual = j;
+			nivel = jugadorActual.getNivel();
+		}
+		catch (JugadorInexistenteException ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
-	
+	/**
+	 * Permite recuperar la información guardada anteriormente. (Persistencia)
+	 * Recupera cada archivo separado y los atributos son inicializados nuevamente.
+	 */
 	public void cargarDatos() {
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream("baseDeDatos/datosJuego"));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("archivos/datosArbol"));
 			jugadorRaiz = (Jugador)in.readObject();
 			in.close();
+			ObjectInputStream in2 = new ObjectInputStream(new FileInputStream("archivos/datosLista"));
+			datos = (ArrayList<Jugador>)in2.readObject();
+			in2.close();
+			ObjectInputStream in3 = new ObjectInputStream(new FileInputStream("archivos/datosPodio"));
+			raizPodio = (Jugador)in3.readObject();
+			in3.close();
 		}
 		catch(FileNotFoundException e) {
 			e.printStackTrace();
@@ -528,9 +554,10 @@ public class JuegoDragon {
 	/**
 	 * Implementación propia de un algoritmo de búsqueda binaria.
 	 * @param nombreJugador Criterio de búsqueda por nombre.
-	 * @return
+	 * @return El jugador buscado.
+	 * @throws JugadorInexistenteException en caso de que el jugador por ese nombre no exista.
 	 */
-	public Jugador buscarJugadorXNombre(String nombreJugador) {
+	public Jugador buscarJugadorXNombre(String nombreJugador) throws JugadorInexistenteException{
 		ordenarXNombre();
 		Jugador buscado = new Jugador(nombreJugador, 0);
 		int inicio = 0;
@@ -540,7 +567,7 @@ public class JuegoDragon {
 		
 		while (inicio<=fin && !salir) {
 			medio = (inicio + fin)/2;
-			if(buscado.compare(buscado, datos.get(medio))) {
+			if(buscado.compare(buscado, datos.get(medio))==1) {
 				inicio = medio+1;
 			}
 			else {
@@ -551,13 +578,18 @@ public class JuegoDragon {
 				salir = true;
 			}
 		}
+		if(!salir) {
+			JugadorInexistenteException e = new JugadorInexistenteException("No existe jugador llamado: ", nombreJugador);
+			throw e;
+		}
 		return buscado;
 	}
 
 	/**
 	 * Implementación propia de un algoritmo de búsqueda binaria.
 	 * @param puntaje Criterio de búsqueda por puntaje.
-	 * @return
+	 * @return El jugador buscado.
+	 * @throws JugadorInexistenteException en caso de que el jugador por ese nombre no exista.
 	 */
 	public Jugador buscarJugadorXPuntaje(int puntaje) throws JugadorInexistenteException{
 		Jugador jugadorBuscado = null;
@@ -569,7 +601,7 @@ public class JuegoDragon {
 		
 		while (inicio<=fin && !salir) {
 			medio = (inicio + fin)/2;
-			if(puntaje < datos.get(medio).getPuntaje()) {
+			if(puntaje > datos.get(medio).getPuntaje()) {
 				inicio = medio+1;
 			}
 			else {
@@ -579,11 +611,11 @@ public class JuegoDragon {
 				jugadorBuscado = datos.get(medio);
 				salir = true;
 			}
-			if(medio==0 && !salir) {
-				JugadorInexistenteException e = new JugadorInexistenteException("El jugador con el puntaje indicado no existe.", "");
-				throw e;
-			}
 		}
+		if(!salir) {
+			JugadorInexistenteException e = new JugadorInexistenteException("El jugador con el puntaje indicado no existe.", "");
+			throw e;
+		}		
 		return jugadorBuscado;
 	}
 	/**
@@ -616,29 +648,88 @@ public class JuegoDragon {
 			ordenarXPuntajeSeleccion();
 		}
 	}
-	
+	/**
+	 * Permite ordenar la lista por el algoritmo de ordenamiento Burbuja con el nombre del jugador como criterio.
+	 */
 	public void ordenarXNombreBurbuja() {
-		
+		for (int i = datos.size(); i > 0; i-- ) {
+			for (int j=0; j<i-1; j++) {
+				if(	datos.get(j).compare(datos.get(j), datos.get(j+1)) == (-1)) {
+					Jugador tmp = datos.get(j);
+					datos.set(j, datos.get(j+1));
+					datos.set((j+1), tmp);
+				}
+			}
+		}
 	}
-	
+	/**
+	 * Permite ordenar la lista por el algoritmo de ordenamiento Insercion con el nombre del jugador como criterio.
+	 */
 	public void ordenarXNombreInsercion() {
-		
+		for (int i = 1; i < datos.size(); i++) {
+			for (int j = i; j>0 && ((datos.get(j).compare(datos.get(j), datos.get(j-1)))==(-1)); j--) {
+				Jugador temp = datos.get(j);
+				
+				datos.set(j, datos.get(j-1));
+				datos.set(j-1, temp);
+			}
+		}
 	}
-	
+	/**
+	 * Permite ordenar la lista por el algoritmo de ordenamiento Seleccion con el nombre del jugador como criterio.
+	 */
 	public void ordenarXNombreSeleccion() {
-		
+		for (int i = 0; i < datos.size()-1; i++) {
+			Jugador menor = datos.get(i);
+			int cual = i;
+			for (int j = i + 1; j < datos.size(); j++) {
+				if((datos.get(j).compare(datos.get(j), menor))==(-1)) {
+					menor = datos.get(i);
+					cual = j;
+				}
+			}
+			Jugador temp = datos.get(i);
+			datos.set(i, menor);
+			datos.set(cual, temp);
+		}
 	}
-	
+	/**
+	 * Permite ordenar la lista por el algoritmo de ordenamiento Burbuja con el puntaje del jugador como criterio.
+	 */
 	public void ordenarXPuntajeBurbuja() {
-		
+		for (int i = datos.size(); i > 0; i-- ) {
+			for (int j=0; j<i-1; j++) {
+				if (datos.get(j).getPuntaje() < datos.get(j+1).getPuntaje()) {
+					Jugador tmp = datos.get(j);
+					datos.set(j, datos.get(j+1));
+					datos.set((j+1), tmp);
+				}
+			}
+		}
 	}
-	
+	/**
+	 * Permite ordenar la lista por el algoritmo de ordenamiento Insercion con el puntaje del jugador como criterio.
+	 */
 	public void ordenarXPuntajeInsercion() {
 		
 	}
-	
+	/**
+	 * Permite ordenar la lista por el algoritmo de ordenamiento Seleccion con el puntaje del jugador como criterio.
+	 */
 	public void ordenarXPuntajeSeleccion() {
-		
+		for (int i = 0; i < datos.size()-1; i++) {
+			Jugador menor = datos.get(i);
+			int cual = i;
+			for (int j = i + 1; j < datos.size(); j++  ) {
+				if(datos.get(j).compareTo(menor)<0) {
+					menor = datos.get(i);
+					cual = j;
+				}
+			}
+			Jugador temp = datos.get(i);
+			datos.set(i, menor);
+			datos.set(cual, temp);
+		}
 	}
 	
 }
