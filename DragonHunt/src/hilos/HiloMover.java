@@ -57,25 +57,20 @@ public class HiloMover extends Thread {
 		while (!detener) {
 			int i = 0;
 			Dragon drag;
-			try {
-				drag = elJuego.buscarDragonCodigo(i);
+			drag = elJuego.buscarDragonCodigo(i);
 			for (; i < elJuego.getNumDragones(); i++) {
-				if (drag!=null) {
-					drag.mover();
-//					System.out.println(i);
-				}				
+						if (drag!=null) {
+							drag.mover();
+			//					System.out.println(i);
+						}				
 			}
 			if (drag != null) {
-				try {
-					Thread.sleep(drag.getVelocidad());
-				} catch (InterruptedException e) {
-				
-					e.printStackTrace();
-				}
-			}
-			} 
-			catch (NoExisteException e1) {
-				e1.getMessage();
+						try {
+							Thread.sleep(drag.getVelocidad());
+						} catch (InterruptedException e) {
+						
+							e.printStackTrace();
+						}
 			}
 
 			
