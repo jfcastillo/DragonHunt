@@ -203,13 +203,7 @@ public class Jugador implements Serializable, Comparable<Jugador>, Comparator<Ju
 		if(n1.equals(n2)) {
 			return 0;
 		}
-		if(i>n1.length()-1) {
-			return -1;
-		}
-		if(i>n2.length()-1) {
-			return 1;
-		}
-		else {
+		try {
 			if (n1.charAt(i) > n2.charAt(i)) {
 				return 1;
 			}
@@ -220,6 +214,15 @@ public class Jugador implements Serializable, Comparable<Jugador>, Comparator<Ju
 				return compararCadenas(n1, n2, i+1);
 			}
 		}
+		catch(IndexOutOfBoundsException e) {
+			if(i>n1.length()-1) {
+				return -1;
+			}
+			if(i>n2.length()-1) {
+				return 1;
+			}
+		}
+		return i;
 	}
 
 }
