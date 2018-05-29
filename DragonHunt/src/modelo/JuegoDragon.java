@@ -1,4 +1,13 @@
 package modelo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 /**
  * Clase principal del modelo del juego.
  * @author Felipe Castillo && Mayumi Tamura
@@ -30,6 +39,14 @@ public class JuegoDragon {
 	 */	
 	private Jugador jugadorRaiz;
 	/**
+	 * Jugador raiz del podio de primeros jugadores.
+	 */
+	private Jugador raizPodio;
+	/**
+	 * Lista de jugadores modificable.
+	 */
+	private ArrayList<Jugador> datos;
+	/**
 	 * Primer dragón de la lista
 	 */
 	private Dragon primerDragon;
@@ -48,9 +65,12 @@ public class JuegoDragon {
 		jugadorRaiz = null;
 		primerDragon = null;
 		ultimoDragon = null;
+		raizPodio = null;
+		datos = new ArrayList<Jugador>();
 		numDragones = 0;
 		nivel = 0;
 		fondo = "img/fondo_P.gif";
+		cargarDatos();
 	}
 
 	//	MÉTODOS	
@@ -88,8 +108,6 @@ public class JuegoDragon {
 		this.numDragones = numDragones;
 	}
 	
-	
-
 	public String getFondo() {
 		return fondo;
 	}
@@ -133,7 +151,8 @@ public class JuegoDragon {
 	public void setUltimoDragon(Dragon ultimoDragon) {
 		this.ultimoDragon = ultimoDragon;
 	}
-
+	
+	//	MÉTODOS
 	/**
 	 * Método para agregar un nuevo jugador al árbol según su puntaje.
 	 * @param nombre El nombre del nuevo jugador.
@@ -190,7 +209,6 @@ public class JuegoDragon {
 			numDragones++;
 			
 		}
-		
 	}
 	
 	/**
@@ -285,7 +303,6 @@ public class JuegoDragon {
 				}
 			}
 		}
-		
 		return encontrado;
 	}
 //	public Dragon darDragonAleatorio() {		
@@ -397,9 +414,6 @@ public class JuegoDragon {
 		}
 	}
 	
-	
-	
-	
 	/**
 	 * Método para crear un dragón de acuerdo al nivel en el que se encuentre.
 	 */
@@ -474,5 +488,157 @@ public class JuegoDragon {
 		crearDragon();
 	}
 	
+	public void guardarPartida() {
+		agregarJugador(jugadorActual.getNombre(), jugadorActual.getPuntaje());
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("baseDeDatos/datosJuego"));
+			out.writeObject(jugadorRaiz);
+			out.close();
+		}
+		catch(FileNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void cargarUnaPartida(String nombreJugador) {
+		Jugador j = buscarJugadorXNombre(nombreJugador);
+		jugadorActual = j;
+		nivel = jugadorActual.getNivel();
+	}
+	
+	public void cargarDatos() {
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("baseDeDatos/datosJuego"));
+			jugadorRaiz = (Jugador)in.readObject();
+			in.close();
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Implementación propia de un algoritmo de búsqueda binaria.
+	 * @param nombreJugador Criterio de búsqueda por nombre.
+	 * @return
+	 */
+	public Jugador buscarJugadorXNombre(String nombreJugador) {
+		ordenarXNombre();
+		Jugador buscado = new Jugador(nombreJugador, 0);
+		int inicio = 0;
+		int medio = 0;
+		int fin = datos.size()-1;
+		boolean salir = false;
+		
+		while (inicio<=fin && !salir) {
+			medio = (inicio + fin)/2;
+			if(buscado.compare(buscado, datos.get(medio))) {
+				inicio = medio+1;
+			}
+			else {
+				fin = medio-1;
+			}
+			if(buscado.compare(buscado, datos.get(medio))==0) {
+				buscado = datos.get(medio);
+				salir = true;
+			}
+		}
+		return buscado;
+	}
 
+	/**
+	 * Implementación propia de un algoritmo de búsqueda binaria.
+	 * @param puntaje Criterio de búsqueda por puntaje.
+	 * @return
+	 */
+	public Jugador buscarJugadorXPuntaje(int puntaje) throws JugadorInexistenteException{
+		Jugador jugadorBuscado = null;
+		ordenarXPuntaje();
+		int inicio = 0;
+		int medio = 0;
+		int fin = datos.size()-1;
+		boolean salir = false;
+		
+		while (inicio<=fin && !salir) {
+			medio = (inicio + fin)/2;
+			if(puntaje < datos.get(medio).getPuntaje()) {
+				inicio = medio+1;
+			}
+			else {
+				fin = medio-1;
+			}
+			if(datos.get(medio).getPuntaje() == puntaje) {
+				jugadorBuscado = datos.get(medio);
+				salir = true;
+			}
+			if(medio==0 && !salir) {
+				JugadorInexistenteException e = new JugadorInexistenteException("El jugador con el puntaje indicado no existe.", "");
+				throw e;
+			}
+		}
+		return jugadorBuscado;
+	}
+	/**
+	 * Permite elegir aleatoriamente el algoritmo de ordenamiento por el cual se va a ordenar la lista de jugadores por nombres.
+	 */
+	public void ordenarXNombre() {
+		int random = (int) Math.random() * 3 + 1;
+		if(random==1) {
+			ordenarXNombreBurbuja();
+		}
+		else if(random==2) {
+			ordenarXNombreInsercion();
+		}
+		else if(random==3) {
+			ordenarXNombreSeleccion();
+		}
+	}
+	/**
+	 * Permite elegir aleatoriamente el algoritmo de ordenamiento por el cual se va a ordenar la lista de jugadores por puntajes.
+	 */
+	public void ordenarXPuntaje() {
+		int random = (int) Math.random() * 3 + 1;
+		if(random==1) {
+			ordenarXPuntajeBurbuja();
+		}
+		else if(random==2) {
+			ordenarXPuntajeInsercion();
+		}
+		else if(random==3) {
+			ordenarXPuntajeSeleccion();
+		}
+	}
+	
+	public void ordenarXNombreBurbuja() {
+		
+	}
+	
+	public void ordenarXNombreInsercion() {
+		
+	}
+	
+	public void ordenarXNombreSeleccion() {
+		
+	}
+	
+	public void ordenarXPuntajeBurbuja() {
+		
+	}
+	
+	public void ordenarXPuntajeInsercion() {
+		
+	}
+	
+	public void ordenarXPuntajeSeleccion() {
+		
+	}
+	
 }
