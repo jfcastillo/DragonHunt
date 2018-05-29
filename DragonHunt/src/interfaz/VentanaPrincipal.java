@@ -46,7 +46,7 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	private HiloMover hiloMover;
 	/**
-	 * El hilo de creaci髇
+	 * El hilo de creaci贸n
 	 */
 	private HiloCrear hiloCrear;
 	
@@ -56,7 +56,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	//CONSTRUCTOR
 	/**
-	 * M閠odo constructor de la clase.
+	 * M茅todo constructor de la clase.
 	 * Crea una ventana principal e inicializa sus relaciones.
 	 */
 	public VentanaPrincipal() {
@@ -139,30 +139,25 @@ public class VentanaPrincipal extends JFrame {
 	
 	public String[] buscarInfoDragon(int i) {
 		String[] info =new String[4];
-		try {
-			if (elJuego.buscarDragonCodigo(i)!=null) {
-				info[0] = elJuego.buscarDragonCodigo(i).getRutaImagen();
-				info[1] = elJuego.buscarDragonCodigo(i).getPosicionX()+"";
-				info[2] = elJuego.buscarDragonCodigo(i).getPosicionY()+"";
-				info[3] = elJuego.buscarDragonCodigo(i).isSeFue()+"";
-			}
-			else {
-				info[0] = "";
-				info[1] = "";
-				info[2] = "";
-				info[3] = "";
-			}
+		if (elJuego.buscarDragonCodigo(i)!=null) {
+			info[0] = elJuego.buscarDragonCodigo(i).getRutaImagen();
+			info[1] = elJuego.buscarDragonCodigo(i).getPosicionX()+"";
+			info[2] = elJuego.buscarDragonCodigo(i).getPosicionY()+"";
+			info[3] = elJuego.buscarDragonCodigo(i).isSeFue()+"";
 		}
-		catch(NoExisteException ne) {
-			ne.getMessage();
+		else {
+			info[0] = "";
+			info[1] = "";
+			info[2] = "";
+			info[3] = "";
 		}
 		return info;
 	}
 	/**
-	 * M閠odo llamado al hacer click en el juego
-	 * Llamar al m閠odo del mundo encargado de calcular el puntaje si hizo click sobre un drag髇
-	 * @param x Posici髇 X del cursor
-	 * @param y Posici髇 Y del cursor
+	 * M茅todo llamado al hacer click en el juego
+	 * Llamar al m茅todo del mundo encargado de calcular el puntaje si hizo click sobre un drag贸n
+	 * @param x Posici贸n X del cursor
+	 * @param y Posici贸n Y del cursor
 	 */
 	public void calcularPuntaje(int x, int y) {
 		try {
