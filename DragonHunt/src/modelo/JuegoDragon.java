@@ -54,17 +54,17 @@ public class JuegoDragon {
 	 */
 	private ArrayList<Jugador> datos;
 	/**
-	 * Primer dragón de la lista
+	 * Primer dragon de la lista
 	 */
 	private Dragon primerDragon;
 	/**
-	 * Último dragón de la lista
+	 * Ultimo dragon de la lista
 	 */
 	private Dragon ultimoDragon;
 	
 	//	CONSTRUCTOR
 	/**
-	 * Método constructor de la clase.
+	 * Metodo constructor de la clase.
 	 * Crea un nuevo juego e inicializa sus atributos.	
 	 */
 	public JuegoDragon() {
@@ -573,7 +573,8 @@ public class JuegoDragon {
 		return buscado;
 	}
 
-	 * Método para guardar el nombre del jugador y su puntaje en un archivo de texto.
+	 /**
+	 * Metodo para guardar el nombre del jugador y su puntaje en un archivo de texto.
 	 */
 	public void guardarPuntaje() {
 		File archivo = new File("archivos/puntajes.txt");
@@ -596,7 +597,7 @@ public class JuegoDragon {
 		}
 	}
 	/**
-	 * Método para cargar los puntajes almacenados en un archivo de texto.
+	 * Metodo para cargar los puntajes almacenados en un archivo de texto.
 	 * @return Un ArrayList con los nombre y los puntajes de los jugadores.
 	 */
 	public ArrayList<String> verPuntajes(){
@@ -619,7 +620,7 @@ public class JuegoDragon {
 	}
 
 	/**
-	 * Implementación propia de un algoritmo de búsqueda binaria.
+	 * Implementacion propia de un algoritmo de busqueda binaria.
 	 * @param puntaje Criterio de búsqueda por puntaje.
 	 * @return El jugador buscado.
 	 * @throws JugadorInexistenteException en caso de que el jugador por ese nombre no exista.
