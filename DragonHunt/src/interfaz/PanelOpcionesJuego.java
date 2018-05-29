@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -68,7 +69,9 @@ public class PanelOpcionesJuego extends JPanel implements ActionListener{
 		String comando = e.getActionCommand();
 		
 		if (comando == GUARDAR) {
-			vJuego.darVentanaPrincipal().guardarPuntajes();
+			String jA = JOptionPane.showInputDialog("Ingrese su nombre: ");
+			vJuego.guardar(jA);
+			//vJuego.darVentanaPrincipal().guardarPuntajes();
 			System.out.println(btnGuardar.getSize());
 			
 		}

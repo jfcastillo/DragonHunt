@@ -48,8 +48,9 @@ public class VentanaJuego extends JFrame {
 		return vPrincipal;
 	}
 	
-	public void guardar() {
-		
+	public void guardar(String n) {
+		vPrincipal.guardarPuntajes();
+		vPrincipal.guardar(n);
 	}
 	
 	public void volverPrincipal() {

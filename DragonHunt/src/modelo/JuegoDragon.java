@@ -82,7 +82,7 @@ public class JuegoDragon {
 		cargarDatos();
 	}
 
-	//	MÉTODOS	
+	//	METODOS	
 	
 	public int getNivel() {
 		return nivel;
@@ -129,8 +129,9 @@ public class JuegoDragon {
 		return jugadorActual;
 	}
 
-	public void setJugadorActual(Jugador jugadorActual) {
-		this.jugadorActual = jugadorActual;
+	public void setJugadorActual(String j) {
+		Jugador a = new Jugador(j, jugadorActual.getPuntaje());
+		this.jugadorActual = a;
 	}
 
 	public void setNivel(int nivel) {
@@ -145,6 +146,14 @@ public class JuegoDragon {
 		this.jugadorRaiz = raiz;
 	}
 
+	public Jugador getRaizPodio() {
+		return raizPodio;
+	}
+
+	public void setRaizPodio(Jugador raiz) {
+		this.raizPodio = raiz;
+	}
+	
 	public Dragon getPrimerDragon() {
 		return primerDragon;
 	}
@@ -160,7 +169,6 @@ public class JuegoDragon {
 	public void setUltimoDragon(Dragon ultimoDragon) {
 		this.ultimoDragon = ultimoDragon;
 	}
-	
 	
 	public ArrayList<Jugador> getDatos() {
 		return datos;
@@ -235,12 +243,14 @@ public class JuegoDragon {
 	 * para usarlo en el movimiento del dragón
 	 * @param codigo del dragón que se va a buscar
 	 * @return El dragón encontrado
+	 * @throws NoExisteException Si no hay dragones
 	 */
-	public Dragon buscarDragonCodigo(int codigo) {
+	public Dragon buscarDragonCodigo(int codigo) throws NoExisteException {
 		Dragon encontrado = null;
 		Dragon actual = primerDragon;
 		if (actual == null) {
-			//Lanzar NoExisteException			
+			NoExisteException ne = new NoExisteException("No existe");
+			throw ne;
 		}
 		else {
 			if (actual.getCodigo() == codigo) {
@@ -491,6 +501,7 @@ public class JuegoDragon {
 	public void guardarPartida() {
 		agregarJugador(jugadorActual.getNombre(), jugadorActual.getPuntaje());
 		datos.add(jugadorActual);
+		actualizarPodio();
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("archivos/datosArbol"));
 			out.writeObject(jugadorRaiz);
@@ -780,5 +791,24 @@ public class JuegoDragon {
 			datos.set(cual, temp);
 		}
 	}
+	/**
+	 * Permite actualizar el podio de mejores puntajes.
+	 * Toma los tres ultimos jugadores, mejores puntajes y crea un arbol podio.
+	 */
+	public void actualizarPodio() {
+		ordenarXPuntaje();
+		int tam = datos.size();
+		raizPodio = datos.get(tam-1);
+		raizPodio.setIzq(datos.get(tam-2));
+		raizPodio.setDer(datos.get(tam-3));
+	}
 	
+	public String darInfoPodio() {
+		actualizarPodio();
+		String inf = "";
+		inf += raizPodio.getNombre()+"_"+raizPodio.getPuntaje()+" ";
+		inf += raizPodio.getIzq().getNombre()+"_"+raizPodio.getIzq().getPuntaje()+" ";
+		inf += raizPodio.getDer().getNombre()+"_"+raizPodio.getDer().getPuntaje();
+		return inf;
+	}
 }

@@ -88,13 +88,8 @@ public class VentanaPuntajes extends JFrame implements ActionListener, ItemListe
 	
 	public String[][] darPuntajes() {
 		return vPrincipal.darPuntajes();
-//		String[][] p = new String[2][2];
-//		p[0][0] = "1 Jugador";
-//		p[0][1] = "1 su puntaje";
-//		p[1][0] = "2 Jugador";
-//		p[1][1] = "2 su puntaje";
-//		return p;
 	}
+	
 	public void cambiarPuntajes(String[][] datos) {
 		pPuntajes.mostrarPuntajes(datos);;
 	}
@@ -102,14 +97,17 @@ public class VentanaPuntajes extends JFrame implements ActionListener, ItemListe
 	public void ordenarXPunt() {
 		vPrincipal.ordenarPuntajesXPnts();
 		pPuntajes.repaint();
-		
 	}
 	
 	public void ordenarXNomb() {
 		vPrincipal.ordenarPuntajesXNombre();
 		pPuntajes.repaint();
-		
 	}
+	
+	public String verPodio() {
+		return vPrincipal.darPodio();
+	}
+	
 	public PanelPuntajes darPanelPuntajes() {
 		return pPuntajes;
 	}
