@@ -161,6 +161,15 @@ public class JuegoDragon {
 		this.ultimoDragon = ultimoDragon;
 	}
 	
+	
+	public ArrayList<Jugador> getDatos() {
+		return datos;
+	}
+
+	public void setDatos(ArrayList<Jugador> datos) {
+		this.datos = datos;
+	}
+
 	//	MÉTODOS
 	/**
 	 * Método para agregar un nuevo jugador al árbol según su puntaje.
@@ -689,7 +698,7 @@ public class JuegoDragon {
 	public void ordenarXNombreBurbuja() {
 		for (int i = datos.size(); i > 0; i-- ) {
 			for (int j=0; j<i-1; j++) {
-				if(	datos.get(j).compare(datos.get(j), datos.get(j+1)) == (-1)) {
+				if(	datos.get(j).compare(datos.get(j), datos.get(j+1)) == (1)) {
 					Jugador tmp = datos.get(j);
 					datos.set(j, datos.get(j+1));
 					datos.set((j+1), tmp);
@@ -719,7 +728,7 @@ public class JuegoDragon {
 			int cual = i;
 			for (int j = i + 1; j < datos.size(); j++) {
 				if((datos.get(j).compare(datos.get(j), menor))==(-1)) {
-					menor = datos.get(i);
+					menor = datos.get(j);
 					cual = j;
 				}
 			}
@@ -734,7 +743,7 @@ public class JuegoDragon {
 	public void ordenarXPuntajeBurbuja() {
 		for (int i = datos.size(); i > 0; i-- ) {
 			for (int j=0; j<i-1; j++) {
-				if (datos.get(j).getPuntaje() < datos.get(j+1).getPuntaje()) {
+				if (	(datos.get(j).getPuntaje()) > (datos.get(j+1).getPuntaje())	) {
 					Jugador tmp = datos.get(j);
 					datos.set(j, datos.get(j+1));
 					datos.set((j+1), tmp);
@@ -756,8 +765,8 @@ public class JuegoDragon {
 			Jugador menor = datos.get(i);
 			int cual = i;
 			for (int j = i + 1; j < datos.size(); j++  ) {
-				if(datos.get(j).compareTo(menor)<0) {
-					menor = datos.get(i);
+				if(datos.get(j).compareTo(menor) < 0) {
+					menor = datos.get(j);
 					cual = j;
 				}
 			}

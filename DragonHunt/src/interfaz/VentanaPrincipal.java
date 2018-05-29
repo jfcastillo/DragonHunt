@@ -106,6 +106,7 @@ public class VentanaPrincipal extends JFrame {
 	public void verPuntajes() {
 		setVisible(false);
 		vPuntajes = new VentanaPuntajes(this);
+		darPuntajes();
 		
 	}
 	public String[][] darPuntajes() {		
@@ -115,6 +116,7 @@ public class VentanaPrincipal extends JFrame {
 			datos[i][0] = nDatos[0];
 			datos[i][1] = nDatos[1];
 		}
+		vPuntajes.cambiarPuntajes(datos);
 		return datos;
 	}
 	
@@ -177,7 +179,24 @@ public class VentanaPrincipal extends JFrame {
 	public String darFondoJuego() {
 		return elJuego.getFondoJuego();
 	}
-	
+	public void ordenarPuntajesXPnts() {
+		elJuego.ordenarXPuntaje();
+		String [][] datos = new String[elJuego.getDatos().size()][2];
+		for (int i = 0; i < datos.length; i++) {			
+			datos[i][0] = elJuego.getDatos().get(i).getNombre();
+			datos[i][1] = elJuego.getDatos().get(i).getPuntaje()+"";
+		}
+		vPuntajes.cambiarPuntajes(datos);
+	}
+	public void ordenarPuntajesXNombre() {
+		elJuego.ordenarXNombre();
+		String [][] datos = new String[elJuego.getDatos().size()][2];
+		for (int i = 0; i < datos.length; i++) {			
+			datos[i][0] = elJuego.getDatos().get(i).getNombre();
+			datos[i][1] = elJuego.getDatos().get(i).getPuntaje()+"";
+		}
+		vPuntajes.cambiarPuntajes(datos);
+	}
 	public static void main(String[] args) {
 		VentanaPrincipal principal = new VentanaPrincipal();
 	}

@@ -39,21 +39,21 @@ public class PanelPuntajes extends JPanel{
 		vPuntajes = ventana;
 		setPreferredSize(new Dimension(700, 550));
 		
-		data = vPuntajes.darPuntajes();
-		table = new JTable(data, COLUMNNAMES);
-		scrollPane = new JScrollPane(table);
-		scrollPane.getViewport().setOpaque(false);
-        scrollPane.setOpaque(false);
+		pOpciones = new PanelOpcionesPuntajes(this);
         
-        pOpciones = new PanelOpcionesPuntajes(this);
-        
-		add(scrollPane, BorderLayout.CENTER);
+
 		add(pOpciones, BorderLayout.SOUTH);
 	}
 	
 	//	MÉTODOS
-	public void mostrarPuntajes() {
-		
+	public void mostrarPuntajes(String [][]datos) {
+		data = datos;
+		table = new JTable(data, COLUMNNAMES);
+		scrollPane = new JScrollPane(table);
+		scrollPane.getViewport().setOpaque(false);
+        scrollPane.setOpaque(false);
+		add(scrollPane, BorderLayout.CENTER);
+        
 	}
 	
 	public void ordenarXP() {

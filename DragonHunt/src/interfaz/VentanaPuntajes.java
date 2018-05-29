@@ -96,17 +96,17 @@ public class VentanaPuntajes extends JFrame implements ActionListener, ItemListe
 //		return p;
 	}
 	public void cambiarPuntajes(String[][] datos) {
-		pPuntajes.setData(datos);
+		pPuntajes.mostrarPuntajes(datos);;
 	}
 	
 	public void ordenarXPunt() {
-		//vPrincipal.ordenarPuntajesXPnts();
+		vPrincipal.ordenarPuntajesXPnts();
 		pPuntajes.repaint();
 		
 	}
 	
 	public void ordenarXNomb() {
-		//vPrincipal.ordenarPuntajesXNombre();
+		vPrincipal.ordenarPuntajesXNombre();
 		pPuntajes.repaint();
 		
 	}
