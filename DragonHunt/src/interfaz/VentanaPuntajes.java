@@ -110,6 +110,9 @@ public class VentanaPuntajes extends JFrame implements ActionListener, ItemListe
 		pPuntajes.repaint();
 		
 	}
+	public PanelPuntajes darPanelPuntajes() {
+		return pPuntajes;
+	}
 	/**
 	 * Permite cambiar el panel ubicado en el centro, variando entre PanelPuntajes y PanelPodio.
 	 * @param ItemEvent La selección del JComboBox sobre cual panel se debe visualizar.

@@ -711,9 +711,8 @@ public class JuegoDragon {
 	 */
 	public void ordenarXNombreInsercion() {
 		for (int i = 1; i < datos.size(); i++) {
-			for (int j = i; j>0 && ((datos.get(j).compare(datos.get(j), datos.get(j-1)))==(-1)); j--) {
+			for (int j = i; j>0 && ( (datos.get(j-1).compare(datos.get(j-1), datos.get(j)))==(1) ); j--) {
 				Jugador temp = datos.get(j);
-				
 				datos.set(j, datos.get(j-1));
 				datos.set(j-1, temp);
 			}
@@ -755,7 +754,13 @@ public class JuegoDragon {
 	 * Permite ordenar la lista por el algoritmo de ordenamiento Insercion con el puntaje del jugador como criterio.
 	 */
 	public void ordenarXPuntajeInsercion() {
-		
+		for (int i = 1; i < datos.size(); i++) {
+			for (int j = i; j>0 && ( datos.get(j-1).getPuntaje() > datos.get(j).getPuntaje()); j--) {
+				Jugador temp = datos.get(j);
+				datos.set(j, datos.get(j-1));
+				datos.set(j-1, temp);
+			}
+		}
 	}
 	/**
 	 * Permite ordenar la lista por el algoritmo de ordenamiento Seleccion con el puntaje del jugador como criterio.

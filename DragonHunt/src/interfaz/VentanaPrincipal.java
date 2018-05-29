@@ -187,6 +187,7 @@ public class VentanaPrincipal extends JFrame {
 			datos[i][1] = elJuego.getDatos().get(i).getPuntaje()+"";
 		}
 		vPuntajes.cambiarPuntajes(datos);
+		vPuntajes.darPanelPuntajes().repaint();
 	}
 	public void ordenarPuntajesXNombre() {
 		elJuego.ordenarXNombre();
@@ -196,6 +197,7 @@ public class VentanaPrincipal extends JFrame {
 			datos[i][1] = elJuego.getDatos().get(i).getPuntaje()+"";
 		}
 		vPuntajes.cambiarPuntajes(datos);
+		vPuntajes.darPanelPuntajes().repaint();
 	}
 	public static void main(String[] args) {
 		VentanaPrincipal principal = new VentanaPrincipal();
