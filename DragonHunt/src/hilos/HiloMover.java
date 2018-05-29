@@ -6,6 +6,7 @@ import modelo.JuegoDragon;
 
 public class HiloMover extends Thread {
 	private int velocidad;
+	private boolean detener;
 	
 	private VentanaPrincipal vPrincipal;
 	private JuegoDragon elJuego;
@@ -14,8 +15,17 @@ public class HiloMover extends Thread {
 		velocidad = 5;
 		this.vPrincipal = vPrincipal;
 		this.elJuego = elJuego;
+		detener = false;
 	}
 	
+	public boolean isDetener() {
+		return detener;
+	}
+
+	public void setDetener(boolean detener) {
+		this.detener = detener;
+	}
+
 	public int getVelocidad() {
 		return velocidad;
 	}
@@ -42,9 +52,8 @@ public class HiloMover extends Thread {
 
 	@Override
 	public void run() {
-		boolean salir = false;
 		
-		while (!salir) {
+		while (!detener) {
 			int i = 0;
 			Dragon drag = elJuego.buscarDragonCodigo(i);
 			for (; i < elJuego.getNumDragones(); i++) {

@@ -87,13 +87,16 @@ public class VentanaPuntajes extends JFrame implements ActionListener, ItemListe
 	//	MÉTODOS
 	
 	public String[][] darPuntajes() {
-		//return vPrincipal.darPuntajes();
-		String[][] p = new String[2][2];
-		p[0][0] = "1 Jugador";
-		p[0][1] = "1 su puntaje";
-		p[1][0] = "2 Jugador";
-		p[1][1] = "2 su puntaje";
-		return p;
+		return vPrincipal.darPuntajes();
+//		String[][] p = new String[2][2];
+//		p[0][0] = "1 Jugador";
+//		p[0][1] = "1 su puntaje";
+//		p[1][0] = "2 Jugador";
+//		p[1][1] = "2 su puntaje";
+//		return p;
+	}
+	public void cambiarPuntajes(String[][] datos) {
+		pPuntajes.setData(datos);
 	}
 	
 	public void ordenarXPunt() {

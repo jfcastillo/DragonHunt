@@ -68,7 +68,7 @@ public class PanelOpcionesJuego extends JPanel implements ActionListener{
 		String comando = e.getActionCommand();
 		
 		if (comando == GUARDAR) {
-			
+			vJuego.darVentanaPrincipal().guardarPuntajes();
 			System.out.println(btnGuardar.getSize());
 			
 		}

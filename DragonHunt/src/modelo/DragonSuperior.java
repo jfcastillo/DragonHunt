@@ -1,11 +1,14 @@
 package modelo;
 
+import java.awt.Rectangle;
+
 public class DragonSuperior extends Dragon {
 	public static int VALOR_PUNTAJE = 15;
 
 	public DragonSuperior(int codigo, String rutaImagen, boolean moviendoDerecha) {
 		super(codigo, rutaImagen, moviendoDerecha);
 		velocidad = 2;
+		area = new Rectangle(posicionX, posicionY, 200, 122);
 	}
 
 	public void mover() {

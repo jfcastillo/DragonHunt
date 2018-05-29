@@ -1,20 +1,24 @@
 package modelo;
 
+import java.awt.Rectangle;
+
 public class DragonLegendario extends Dragon{
 	public static int VALOR_PUNTAJE = 20;
 
 	public DragonLegendario(int codigo, String rutaImagen, boolean moviendoDerecha) {
 		super(codigo, rutaImagen, moviendoDerecha);
+		velocidad = 1;
+		area = new Rectangle(posicionX, posicionY, 199, 105);
 	}
 	public void mover() {
 		// Arriba a la derecha
 		if (isMoviendoArriba() && isMoviendoDerecha()) {
 			moverArribaDerecha();
 			if (getPosicionX() == 850) {
-				setRutaImagen("img/dragon_normal1.gif");
+				setRutaImagen("img/dragon_legendario1.gif");
 				setMoviendoDerecha(false);
 			} else if (getPosicionY() == 0) {
-				setRutaImagen("img/dragon_normal.gif");
+				setRutaImagen("img/dragon_legendario.gif");
 				setMoviendoArriba(false);
 			}
 
@@ -23,7 +27,7 @@ public class DragonLegendario extends Dragon{
 		else if (isMoviendoArriba() == false && isMoviendoDerecha()) {
 			moverAbajoDerecha();
 			if (getPosicionX() == 850) {
-				setRutaImagen("img/dragon_normal1.gif");
+				setRutaImagen("img/dragon_legendario1.gif");
 				setMoviendoDerecha(false);
 			} else if (getPosicionY() == 550) {
 				setMoviendoArriba(true);
@@ -36,7 +40,7 @@ public class DragonLegendario extends Dragon{
 				setMoviendoArriba(false);
 			} else if (getPosicionX() == 0) {
 				setMoviendoDerecha(true);
-				setRutaImagen("img/dragon_normal.gif");
+				setRutaImagen("img/dragon_legendario.gif");
 			}
 		}
 		// Abajo izquierda
@@ -46,7 +50,7 @@ public class DragonLegendario extends Dragon{
 				setMoviendoArriba(true);
 			} else if (getPosicionX() == 0) {
 				setMoviendoDerecha(true);
-				setRutaImagen("img/dragon_normal.gif");
+				setRutaImagen("img/dragon_legendario.gif");
 			}
 
 		}

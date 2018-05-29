@@ -1,11 +1,18 @@
 package modelo;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +39,7 @@ public class JuegoDragon {
 	//	RELACIONES
 	/**
 	 * Usuario jugando actualmente
-	 */
+	 */	
 	private Jugador jugadorActual;
 	/**
 	 * Primer jugador del arbol de jugadores
@@ -47,21 +54,22 @@ public class JuegoDragon {
 	 */
 	private ArrayList<Jugador> datos;
 	/**
-	 * Primer dragón de la lista
+	 * Primer dragÃ³n de la lista
 	 */
 	private Dragon primerDragon;
 	/**
-	 * Último dragón de la lista
+	 * Ãšltimo dragÃ³n de la lista
 	 */
 	private Dragon ultimoDragon;
 	
 	//	CONSTRUCTOR
 	/**
-	 * Método constructor de la clase.
+	 * MÃ©todo constructor de la clase.
 	 * Crea un nuevo juego e inicializa sus atributos.	
 	 */
 	public JuegoDragon() {
-		jugadorActual = new Jugador("", 0);
+//		file = new File(arg0)
+		jugadorActual = new Jugador("Felipe", 0);
 		jugadorRaiz = null;
 		primerDragon = null;
 		ultimoDragon = null;
@@ -73,7 +81,7 @@ public class JuegoDragon {
 		cargarDatos();
 	}
 
-	//	MÉTODOS	
+	//	MÃ‰TODOS	
 	
 	public int getNivel() {
 		return nivel;
@@ -85,10 +93,10 @@ public class JuegoDragon {
 			setFondoJuego("img/fondo_juego.jpg");
 		}
 		else if(nivel==2) {
-			setFondoJuego("img/fondo_juego.jpg");
+			setFondoJuego("img/fondo_juego1.gif");
 		}
 		else if(nivel==3) {
-			setFondoJuego("img/fondo_juego.jpg");
+			setFondoJuego("img/fondo_juego1.gif");
 		}
 	}
 	
@@ -107,7 +115,7 @@ public class JuegoDragon {
 	public void setNumDragones(int numDragones) {
 		this.numDragones = numDragones;
 	}
-	
+
 	public String getFondo() {
 		return fondo;
 	}
@@ -152,9 +160,9 @@ public class JuegoDragon {
 		this.ultimoDragon = ultimoDragon;
 	}
 	
-	//	MÉTODOS
+	//	MÃ‰TODOS
 	/**
-	 * Método para agregar un nuevo jugador al árbol según su puntaje.
+	 * MÃ©todo para agregar un nuevo jugador al Ã¡rbol segÃºn su puntaje.
 	 * @param nombre El nombre del nuevo jugador.
 	 * @param puntaje El puntaje del nuevo jugador.
 	 */
@@ -188,8 +196,8 @@ public class JuegoDragon {
 	}
 
 	/**
-	 * Método para agregar un nuevo dragón a la lista.
-	 * @param drag El dragón a agregar.
+	 * MÃ©todo para agregar un nuevo dragÃ³n a la lista.
+	 * @param drag El dragÃ³n a agregar.
 	 */
 	public void agregarDragon(Dragon drag) {
 		Dragon actual = primerDragon;
@@ -211,74 +219,12 @@ public class JuegoDragon {
 			
 		}
 	}
-	
+
 	/**
-	 * Crea un dragon aleatoriamente según el nivel de juego.
-	 */
-//	public void crearDragonAleatorio(int i) {
-//		int rangoMov = (2 - 1) + 1;
-//		int random = (int) (Math.random() * rangoMov) + 1;
-//		boolean moviendoDerecha = false;
-//		String ruta = "";
-//		if(nivel==0) {				
-//			if (random == 1) {
-//				moviendoDerecha = true;
-//				ruta = "img/dragon_normal.gif";
-//			}
-//			else {
-//				moviendoDerecha = false;
-//				ruta = "img/dragon_normal1.gif";
-//			}
-//			DragonNormal normal = new DragonNormal(i, ruta, moviendoDerecha);
-//			agregarDragon(normal);
-//		}
-//		else if(nivel==1) {
-//			int codeRandom = (int) (Math.random()*2)+1;
-//			if (codeRandom == 1) {
-//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-//				agregarDragon(normal);
-//			}
-//			else {
-//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-//				agregarDragon(superior);
-//			}
-//		}
-//		else if(nivel==2) {
-//			int codeRandom = (int) (Math.random()*3)+1;
-//			if ( codeRandom == 1) {
-//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-//				agregarDragon(normal);
-//			}
-//			else if( codeRandom == 2 ){
-//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-//				agregarDragon(superior);
-//			}
-//			else {
-//				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
-//				agregarDragon(legendario);
-//			}
-//		}
-//		else if(nivel==3) {
-//			int codeRandom = (int) (Math.random()*3)+1;
-//			if ( codeRandom == 1) {
-//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-//				agregarDragon(normal);
-//			}
-//			else if( codeRandom == 2 ){
-//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-//				agregarDragon(superior);
-//			}
-//			else {
-//				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
-//				agregarDragon(legendario);
-//			}
-//		}
-//	}
-	/**
-	 * Método para recorrer la lista enlazada de dragones y buscar un dragón con un codigo,
-	 * para usarlo en el movimiento del dragón
-	 * @param codigo del dragón que se va a buscar
-	 * @return El dragón encontrado
+	 * MÃ©todo para recorrer la lista enlazada de dragones y buscar un dragÃ³n con un codigo,
+	 * para usarlo en el movimiento del dragÃ³n
+	 * @param codigo del dragÃ³n que se va a buscar
+	 * @return El dragÃ³n encontrado
 	 */
 	public Dragon buscarDragonCodigo(int codigo) {
 		Dragon encontrado = null;
@@ -306,16 +252,11 @@ public class JuegoDragon {
 		}
 		return encontrado;
 	}
-//	public Dragon darDragonAleatorio() {		
-//		int codeRamdon = (int) (Math.random()*3)+1;
-//		return buscarDragonCodigo(codeRamdon);
-//	}
-	
 
 	/**
-	 * Método para eliminar un dragón cuando llegue al final o
+	 * MÃ©todo para eliminar un dragÃ³n cuando llegue al final o
 	 * cuando el jugador lo atrape
-	 * @param drag Dragón que se va a eliminar
+	 * @param drag DragÃ³n que se va a eliminar
 	 */
 	public void eliminarDragon(Dragon drag) {
 		if (numDragones == 1) {
@@ -340,18 +281,17 @@ public class JuegoDragon {
 			}
 			numDragones--;
 		}
-//		drag.setEstaMuerto(true);
 	}
 	/**
-	 * Método para comprobar si existe un dragon en esa posición
-	 * @param x Posición X donde el jugador hizo click
-	 * @param y Posición Y donde el jugador hizo click
-	 * @return El dragón encontrado
+	 * MÃ©todo para comprobar si existe un dragon en esa posiciÃ³n
+	 * @param x PosiciÃ³n X donde el jugador hizo click
+	 * @param y PosiciÃ³n Y donde el jugador hizo click
+	 * @return El dragÃ³n encontrado
 	 * @throws DragonInexistenteException 
 	 */	
-	public Dragon buscarDragon(int x, int y) throws DragonInexistenteException {
+	public Dragon buscarDragon(int x, int y)  {
 		if (primerDragon == null) {
-			throw new DragonInexistenteException();
+			return null;
 		}
 		else if (primerDragon.getArea().contains(x,y)) {
 			return primerDragon;
@@ -361,13 +301,14 @@ public class JuegoDragon {
 		}		
 	}
 	/**
-	 * Método recursivo para buscar un dragón
-	 * @param drag El dragón que se usará para avanzar en la recusividad
-	 * @param x Posición X donde el jugador hizo click
-	 * @param y Posición Y donde el jugador hizo click
-	 * @return El dragón encontrado
+	 * MÃ©todo recursivo1 para buscar un dragÃ³n
+	 * @param drag El dragÃ³n que se usarÃ¡ para avanzar en la recusividad
+	 * @param x PosiciÃ³n X donde el jugador hizo click
+	 * @param y PosiciÃ³n Y donde el jugador hizo click
+	 * @return El dragÃ³n encontrado
+	 * @throws DragonInexistenteException  si el dragÃ³n no existe
 	 */
-	public Dragon buscarDragon(Dragon drag, int x, int y) {
+	public Dragon buscarDragon(Dragon drag, int x, int y)  {
 		if (drag == null || drag.equals(primerDragon)) {
 			return null;
 		}
@@ -381,11 +322,11 @@ public class JuegoDragon {
 		}
 	}
 	/**
-	 * Método llamado al hacer click en el panel para capturar un dragón
-	 * Busca si existe un dragón en las posiciones x y y donde hizo click, 
+	 * MÃ©todo llamado al hacer click en el panel para capturar un dragÃ³n
+	 * Busca si existe un dragÃ³n en las posiciones x y y donde hizo click, 
 	 * si existe aumenta el puntaje.
-	 * @param x Posición X donde el jugador hizo click
-	 * @param y Posición Y donde el jugador hizo click
+	 * @param x PosiciÃ³n X donde el jugador hizo click
+	 * @param y PosiciÃ³n Y donde el jugador hizo click
 	 * @throws DragonInexistenteException 
 	 */
 	public void calcularPuntaje(int x, int y) throws DragonInexistenteException {
@@ -413,7 +354,7 @@ public class JuegoDragon {
 	}
 	
 	/**
-	 * Método para crear un dragón de acuerdo al nivel en el que se encuentre.
+	 * MÃ©todo para crear un dragÃ³n de acuerdo al nivel en el que se encuentre.
 	 */
 	public void crearDragon() {
 		if (jugadorActual.getDragonesAtrapados()<5) {
@@ -461,23 +402,70 @@ public class JuegoDragon {
 					agregarDragon(superior);
 				}
 			}
+			else if (nivel >= 2) {
+				int codeRandom = (int) (Math.random()*3)+1;
+				int randomMov = (int) (Math.random()*2)+1;
+				if ( codeRandom == 1) {
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_normal.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_normal1.gif";
+					}
+					DragonNormal normal = new DragonNormal(numDragones, ruta, moviendoDerecha);
+					agregarDragon(normal);					
+				}
+				else if(codeRandom == 2) {
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_superior.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_superior1.gif";
+					}
+					DragonSuperior superior = new DragonSuperior(numDragones, ruta, moviendoDerecha);
+					agregarDragon(superior);
+				}
+				else {
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_legendario.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_legendario1.gif";
+					}
+					DragonLegendario legendario = new DragonLegendario(numDragones, ruta, moviendoDerecha);
+					agregarDragon(legendario);
+				}
+			}
 		}
 	}
 	/**
-	 * Verifica si el dragón está vivo y si el jugador aún tiene munición.
-	 * Si se cumple la condicion, el dragón se va.
+	 * Verifica si el jugador perdiÃ³
+	 * Pierde cuando la cantidad de dragones perdido es igual a 5.
+	 * @return true si perdiÃ³ o false si no.
+	 */
+	public boolean perdio() {
+		return jugadorActual.getCantidadPerdidos() == 5;
+	}
+	
+	/**
+	 * Verifica si el dragÃ³n estÃ¡ vivo y si el jugador aÃºn tiene municiÃ³n.
+	 * Si se cumple la condicion, el dragÃ³n se va.
 	 * @param drag el dragon con el que se va a verificar
 	 */
 	public void verificarDragonHuida(Dragon drag) {
 		if ((drag.isMuerto()==false) && (jugadorActual.verificarMunicion())) {
 			drag.setSeFue(true);
-//			eliminarDragon(drag);
-//			jugadorActual.reiniciarMunicion();
 			jugadorActual.setCantidadPerdidos(1);
 		}
 	}
 	/**
-	 * Método para cambiar de nivel.
+	 * MÃ©todo para cambiar de nivel.
 	 * Cambia de nivel cuando atrapa 5 dragones.
 	 */
 	public void cambioDeNivel() {
@@ -487,8 +475,8 @@ public class JuegoDragon {
 		crearDragon();
 	}
 	/**
-	 * Permite la serialización de los jugadores.
-	 * Guarda el árbol de jugadores, arrayList datos y árbol podio en diferentes archivos.
+	 * Permite la serializaciÃ³n de los jugadores.
+	 * Guarda el Ã¡rbol de jugadores, arrayList datos y Ã¡rbol podio en diferentes archivos.
 	 */
 	public void guardarPartida() {
 		agregarJugador(jugadorActual.getNombre(), jugadorActual.getPuntaje());
@@ -512,7 +500,7 @@ public class JuegoDragon {
 		}
 	}
 	/**
-	 * Permite cargar una partida según sea el nombre indicado como parámetro.
+	 * Permite cargar una partida segÃºn sea el nombre indicado como parÃ¡metro.
 	 * @param nombreJugador El jugador cuya partida quiere ser cargada.
 	 */
 	public void cargarUnaPartida(String nombreJugador) {
@@ -526,7 +514,7 @@ public class JuegoDragon {
 		}
 	}
 	/**
-	 * Permite recuperar la información guardada anteriormente. (Persistencia)
+	 * Permite recuperar la informaciÃ³n guardada anteriormente. (Persistencia)
 	 * Recupera cada archivo separado y los atributos son inicializados nuevamente.
 	 */
 	public void cargarDatos() {
@@ -552,8 +540,8 @@ public class JuegoDragon {
 		}
 	}
 	/**
-	 * Implementación propia de un algoritmo de búsqueda binaria.
-	 * @param nombreJugador Criterio de búsqueda por nombre.
+	 * ImplementaciÃ³n propia de un algoritmo de bÃºsqueda binaria.
+	 * @param nombreJugador Criterio de bÃºsqueda por nombre.
 	 * @return El jugador buscado.
 	 * @throws JugadorInexistenteException en caso de que el jugador por ese nombre no exista.
 	 */
@@ -585,9 +573,54 @@ public class JuegoDragon {
 		return buscado;
 	}
 
+	 * MÃ©todo para guardar el nombre del jugador y su puntaje en un archivo de texto.
+	 */
+	public void guardarPuntaje() {
+		File archivo = new File("archivos/puntajes.txt");
+		BufferedWriter bw;
+		try {
+			if (archivo.exists()) {
+				FileWriter fw = new FileWriter(archivo, true);
+				bw = new BufferedWriter(fw);
+				bw.write("\r\n"+jugadorActual.getNombre()+"-"+jugadorActual.getPuntaje());				
+			}
+			else {
+				FileWriter fw = new FileWriter(archivo, true);
+				bw = new BufferedWriter(fw);
+				bw.write(jugadorActual.getNombre()+"-"+jugadorActual.getPuntaje());
+				
+			}					
+			bw.close();
+			
+		} catch (Exception e) {
+		}
+	}
 	/**
-	 * Implementación propia de un algoritmo de búsqueda binaria.
-	 * @param puntaje Criterio de búsqueda por puntaje.
+	 * MÃ©todo para cargar los puntajes almacenados en un archivo de texto.
+	 * @return Un ArrayList con los nombre y los puntajes de los jugadores.
+	 */
+	public ArrayList<String> verPuntajes(){
+		File archivo = new File("archivos/puntajes.txt");
+		ArrayList<String> datos = new ArrayList<String>();		
+		try {
+			
+			FileReader fr = new FileReader(archivo);
+			BufferedReader br = new BufferedReader(fr);
+			String linea = "";
+			while ((linea = br.readLine()) != null) {
+				datos.add(linea);				
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return datos;
+	}
+
+	/**
+	 * ImplementaciÃ³n propia de un algoritmo de bÃºsqueda binaria.
+	 * @param puntaje Criterio de bÃºsqueda por puntaje.
 	 * @return El jugador buscado.
 	 * @throws JugadorInexistenteException en caso de que el jugador por ese nombre no exista.
 	 */
