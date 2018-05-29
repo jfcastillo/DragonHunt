@@ -27,8 +27,8 @@ public class HiloJuego extends Thread{
 	public void run() {
 		
 		while (!detener) {
-			//No eliminar este syso, sino, se daña.
-			System.out.println("h");
+			//No eliminar este syso, sino, se daÃ±a.
+			System.out.println("");
 			if (elJuego.getPrimerDragon()!=null) {
 				if (elJuego.getPrimerDragon().isSeFue()) {
 					
