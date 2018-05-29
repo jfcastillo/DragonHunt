@@ -27,27 +27,35 @@ public abstract class Dragon implements Movible {
 	/**
 	 * Posición X donde se encuentra en la pantalla
 	 */
-	private int posicionX;
+	protected int posicionX;
 	/**
 	 * Posición X donde se encuentra en la pantalla
 	 */
-	private int posicionY;
+	protected int posicionY;
 	/**
 	 * El movimiento del dragon, true si se está moviendo a la derecha.
 	 */
 	private boolean moviendoDerecha;
-
+	/**
+	 * El movimiento del dragon, true si se está moviendo hacia arriba.
+	 */
 	private boolean moviendoArriba;
-
+	/**
+	 * Estado en que se encuentra el dragon.
+	 */
 	private boolean muerto;
-	
+	/**
+	 * Estado de vuelo en que se encuentra el dragón.
+	 */
 	private boolean seFue;
-
+	/**
+	 * Velocidad a la que se mueve
+	 */
 	protected int velocidad;
 	/**
-	 * 
+	 * Tamaño del area del dragón
 	 */
-	private Rectangle area;
+	protected Rectangle area;
 	/**
 	 * El Dragón siguiente de la lista
 	 */

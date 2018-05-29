@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import hilos.*;
 import modelo.Dragon;
@@ -50,6 +51,8 @@ public class VentanaPrincipal extends JFrame {
 	
 	private HiloJuego hiloJuego;
 	
+	private HiloGuardar hiloGuardar;
+	
 	//CONSTRUCTOR
 	/**
 	 * Método constructor de la clase.
@@ -71,6 +74,7 @@ public class VentanaPrincipal extends JFrame {
 		hiloMover = new HiloMover(this, elJuego);
 		hiloCrear = new HiloCrear(this, elJuego);
 		hiloJuego = new HiloJuego(this, elJuego);
+		hiloGuardar = new HiloGuardar(this, elJuego);
 		
 		add(pPrincipal);
 		
@@ -89,6 +93,10 @@ public class VentanaPrincipal extends JFrame {
 //		hiloCrear.start();
 		hiloMover.start();
 		hiloJuego.start();
+		hiloGuardar.start();
+	}
+	public void guardarPuntajes() {
+		elJuego.guardarPuntaje();
 	}
 	
 	public void cargarPartida() {
@@ -98,6 +106,22 @@ public class VentanaPrincipal extends JFrame {
 	public void verPuntajes() {
 		setVisible(false);
 		vPuntajes = new VentanaPuntajes(this);
+		
+	}
+	public String[][] darPuntajes() {		
+		String [][] datos = new String[elJuego.verPuntajes().size()][2];
+		for (int i = 0; i < datos.length; i++) {
+			String[] nDatos = elJuego.verPuntajes().get(i).split("-");
+			datos[i][0] = nDatos[0];
+			datos[i][1] = nDatos[1];
+		}
+		return datos;
+	}
+	
+	public void derrota() {
+		hiloJuego.setDetener(true);
+		hiloMover.setDetener(true);
+		JOptionPane.showMessageDialog(this, "Has perdido");
 	}
 	
 	public void nivel() {

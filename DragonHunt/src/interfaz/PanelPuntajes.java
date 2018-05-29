@@ -52,6 +52,9 @@ public class PanelPuntajes extends JPanel{
 	}
 	
 	//	MÉTODOS
+	public void mostrarPuntajes() {
+		
+	}
 	
 	public void ordenarXP() {
 		vPuntajes.ordenarXPunt();
@@ -61,6 +64,9 @@ public class PanelPuntajes extends JPanel{
 	public void ordenarXN() {
 		vPuntajes.ordenarXNomb();
 		
+	}
+	public void setData(String [][]datos) {
+		data = datos;
 	}
 	/**
 	 * Pinta el fondo del panel con una imagen.

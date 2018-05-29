@@ -1,4 +1,15 @@
 package modelo;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Clase principal del modelo del juego.
  * @author Felipe Castillo && Mayumi Tamura
@@ -23,7 +34,7 @@ public class JuegoDragon {
 	//	RELACIONES
 	/**
 	 * Usuario jugando actualmente
-	 */
+	 */	
 	private Jugador jugadorActual;
 	/**
 	 * Primer jugador del arbol de jugadores
@@ -44,13 +55,15 @@ public class JuegoDragon {
 	 * Crea un nuevo juego e inicializa sus atributos.	
 	 */
 	public JuegoDragon() {
-		jugadorActual = new Jugador("", 0);
+//		file = new File(arg0)
+		jugadorActual = new Jugador("Felipe", 0);
 		jugadorRaiz = null;
 		primerDragon = null;
 		ultimoDragon = null;
 		numDragones = 0;
 		nivel = 0;
 		fondo = "img/fondo_P.gif";
+		
 	}
 
 	//	MÉTODOS	
@@ -65,10 +78,10 @@ public class JuegoDragon {
 			setFondoJuego("img/fondo_juego.jpg");
 		}
 		else if(nivel==2) {
-			setFondoJuego("img/fondo_juego.jpg");
+			setFondoJuego("img/fondo_juego1.gif");
 		}
 		else if(nivel==3) {
-			setFondoJuego("img/fondo_juego.jpg");
+			setFondoJuego("img/fondo_juego1.gif");
 		}
 	}
 	
@@ -87,8 +100,6 @@ public class JuegoDragon {
 	public void setNumDragones(int numDragones) {
 		this.numDragones = numDragones;
 	}
-	
-	
 
 	public String getFondo() {
 		return fondo;
@@ -192,69 +203,7 @@ public class JuegoDragon {
 		}
 		
 	}
-	
-	/**
-	 * Crea un dragon aleatoriamente según el nivel de juego.
-	 */
-//	public void crearDragonAleatorio(int i) {
-//		int rangoMov = (2 - 1) + 1;
-//		int random = (int) (Math.random() * rangoMov) + 1;
-//		boolean moviendoDerecha = false;
-//		String ruta = "";
-//		if(nivel==0) {				
-//			if (random == 1) {
-//				moviendoDerecha = true;
-//				ruta = "img/dragon_normal.gif";
-//			}
-//			else {
-//				moviendoDerecha = false;
-//				ruta = "img/dragon_normal1.gif";
-//			}
-//			DragonNormal normal = new DragonNormal(i, ruta, moviendoDerecha);
-//			agregarDragon(normal);
-//		}
-//		else if(nivel==1) {
-//			int codeRandom = (int) (Math.random()*2)+1;
-//			if (codeRandom == 1) {
-//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-//				agregarDragon(normal);
-//			}
-//			else {
-//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-//				agregarDragon(superior);
-//			}
-//		}
-//		else if(nivel==2) {
-//			int codeRandom = (int) (Math.random()*3)+1;
-//			if ( codeRandom == 1) {
-//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-//				agregarDragon(normal);
-//			}
-//			else if( codeRandom == 2 ){
-//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-//				agregarDragon(superior);
-//			}
-//			else {
-//				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
-//				agregarDragon(legendario);
-//			}
-//		}
-//		else if(nivel==3) {
-//			int codeRandom = (int) (Math.random()*3)+1;
-//			if ( codeRandom == 1) {
-//				DragonNormal normal = new DragonNormal(i, "img/dragon_normal.gif", moviendoDerecha);
-//				agregarDragon(normal);
-//			}
-//			else if( codeRandom == 2 ){
-//				DragonSuperior superior = new DragonSuperior(i, "img/dragon_superior.gif", moviendoDerecha);
-//				agregarDragon(superior);
-//			}
-//			else {
-//				DragonLegendario legendario = new DragonLegendario(i, "img/dragon_legendario.gif", moviendoDerecha);
-//				agregarDragon(legendario);
-//			}
-//		}
-//	}
+
 	/**
 	 * Método para recorrer la lista enlazada de dragones y buscar un dragón con un codigo,
 	 * para usarlo en el movimiento del dragón
@@ -288,11 +237,6 @@ public class JuegoDragon {
 		
 		return encontrado;
 	}
-//	public Dragon darDragonAleatorio() {		
-//		int codeRamdon = (int) (Math.random()*3)+1;
-//		return buscarDragonCodigo(codeRamdon);
-//	}
-	
 
 	/**
 	 * Método para eliminar un dragón cuando llegue al final o
@@ -322,7 +266,6 @@ public class JuegoDragon {
 			}
 			numDragones--;
 		}
-//		drag.setEstaMuerto(true);
 	}
 	/**
 	 * Método para comprobar si existe un dragon en esa posición
@@ -344,7 +287,7 @@ public class JuegoDragon {
 		}		
 	}
 	/**
-	 * Método recursivo para buscar un dragón
+	 * Método recursivo1 para buscar un dragón
 	 * @param drag El dragón que se usará para avanzar en la recusividad
 	 * @param x Posición X donde el jugador hizo click
 	 * @param y Posición Y donde el jugador hizo click
@@ -399,8 +342,6 @@ public class JuegoDragon {
 	}
 	
 	
-	
-	
 	/**
 	 * Método para crear un dragón de acuerdo al nivel en el que se encuentre.
 	 */
@@ -450,8 +391,57 @@ public class JuegoDragon {
 					agregarDragon(superior);
 				}
 			}
+			else if (nivel >= 2) {
+				int codeRandom = (int) (Math.random()*3)+1;
+				int randomMov = (int) (Math.random()*2)+1;
+				if ( codeRandom == 1) {
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_normal.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_normal1.gif";
+					}
+					DragonNormal normal = new DragonNormal(numDragones, ruta, moviendoDerecha);
+					agregarDragon(normal);					
+				}
+				else if(codeRandom == 2) {
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_superior.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_superior1.gif";
+					}
+					DragonSuperior superior = new DragonSuperior(numDragones, ruta, moviendoDerecha);
+					agregarDragon(superior);
+				}
+				else {
+					if (randomMov == 1) {
+						moviendoDerecha = true;
+						ruta = "img/dragon_legendario.gif";
+					}
+					else {
+						moviendoDerecha = false;
+						ruta = "img/dragon_legendario1.gif";
+					}
+					DragonLegendario legendario = new DragonLegendario(numDragones, ruta, moviendoDerecha);
+					agregarDragon(legendario);
+				}
+			}
 		}
 	}
+	/**
+	 * Verifica si el jugador perdió
+	 * Pierde cuando la cantidad de dragones perdido es igual a 5.
+	 * @return true si perdió o false si no.
+	 */
+	public boolean perdio() {
+		return jugadorActual.getCantidadPerdidos() == 5;
+	}
+	
 	/**
 	 * Verifica si el dragón está vivo y si el jugador aún tiene munición.
 	 * Si se cumple la condicion, el dragón se va.
@@ -460,8 +450,6 @@ public class JuegoDragon {
 	public void verificarDragonHuida(Dragon drag) {
 		if ((drag.isMuerto()==false) && (jugadorActual.verificarMunicion())) {
 			drag.setSeFue(true);
-//			eliminarDragon(drag);
-//			jugadorActual.reiniciarMunicion();
 			jugadorActual.setCantidadPerdidos(1);
 		}
 	}
@@ -474,6 +462,68 @@ public class JuegoDragon {
 		jugadorActual.setDragonesAtrapados(0);
 		crearDragon();
 	}
+	/**
+	 * Método para guardar el nombre del jugador y su puntaje en un archivo de texto.
+	 */
+	public void guardarPuntaje() {
+		File archivo = new File("archivos/puntajes.txt");
+		BufferedWriter bw;
+		try {
+			if (archivo.exists()) {
+				FileWriter fw = new FileWriter(archivo, true);
+				bw = new BufferedWriter(fw);
+				bw.write("\r\n"+jugadorActual.getNombre()+"-"+jugadorActual.getPuntaje());				
+			}
+			else {
+				FileWriter fw = new FileWriter(archivo, true);
+				bw = new BufferedWriter(fw);
+				bw.write(jugadorActual.getNombre()+"-"+jugadorActual.getPuntaje());
+				
+			}					
+			bw.close();
+			
+		} catch (Exception e) {
+		}
+	}
+	/**
+	 * Método para cargar los puntajes almacenados en un archivo de texto.
+	 * @return Un ArrayList con los nombre y los puntajes de los jugadores.
+	 */
+	public ArrayList<String> verPuntajes(){
+		File archivo = new File("archivos/puntajes.txt");
+		ArrayList<String> datos = new ArrayList<String>();		
+		try {
+			
+			FileReader fr = new FileReader(archivo);
+			BufferedReader br = new BufferedReader(fr);
+			String linea = "";
+			while ((linea = br.readLine()) != null) {
+				datos.add(linea);				
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return datos;
+	}
+//	public Jugador buscarJugadorXNombre(String nombre){
+////		ordenarXNombre();
+//		if (jugadorRaiz.getNombre().equalsIgnoreCase(nombre)) {
+//			return jugadorRaiz;
+//		}
+//		else {
+//			return buscarJugadorXNombre(nombre, jugadorRaiz);
+//		}
+//		
+//	}
+//	public Jugador buscarJugadorXNombre(String nombre, Jugador jug){		
+//		if (jug.getNombre().equalsIgnoreCase(nombre)) {
+//			return jug;
+//		}
+//		else if
+//		
+//	}
 	
 
 }

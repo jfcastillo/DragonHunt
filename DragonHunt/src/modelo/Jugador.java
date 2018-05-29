@@ -143,7 +143,6 @@ public class Jugador {
 	 * Método para recargar la munición agregandole 3.
 	 */
 	public void reiniciarMunicion() {
-		System.out.println("reiniciar");
 		municion = 3;
 	}
 }
