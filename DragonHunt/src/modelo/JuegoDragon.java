@@ -179,36 +179,44 @@ public class JuegoDragon {
 	}
 
 	//	MÉTODOS
-	/**
+		/**
 	 * Método para agregar un nuevo jugador al árbol según su puntaje.
 	 * @param nombre El nombre del nuevo jugador.
 	 * @param puntaje El puntaje del nuevo jugador.
 	 */
 	public void agregarJugador(String nombre, int puntaje) {
 		Jugador nuevo = new Jugador(nombre, puntaje);
-		datos.add(nuevo);
+		if (jugadorRaiz == null) {
+			jugadorRaiz = nuevo;
+		}
+		else {
+			agregarJugador(nombre, puntaje, jugadorRaiz);
+		}
+	}
+	public void agregarJugador(String nombre, int puntaje, Jugador jug) {
+		Jugador nuevo = new Jugador(nombre, puntaje);
 		if(jugadorRaiz==null) {
 			jugadorRaiz = nuevo;
 		} 
 		else {
-			Jugador auxiliar = jugadorRaiz;
-			Jugador padre = null;
-			while( auxiliar!=null ) {
-				padre = auxiliar;
-				if(puntaje<auxiliar.getPuntaje()) {
-					auxiliar = auxiliar.getIzq();
-					if (auxiliar==null) {
-						padre.setIzq(nuevo);
-						auxiliar = null;
-					}
+			if (puntaje > jugadorRaiz.getPuntaje()) {
+				if (jugadorRaiz.getDer() == null) {
+					jugadorRaiz.setDer(nuevo);
 				}
 				else {
-					auxiliar = auxiliar.getDer();
-					if (auxiliar==null) {
-						padre.setDer(nuevo);
-						auxiliar = null;
-					}
+					agregarJugador(nombre, puntaje, jug.getDer());
 				}
+				
+			}
+//			if (puntaje < jugadorRaiz.getPuntaje()) {
+			else {
+				if (jugadorRaiz.getIzq() == null) {
+					jugadorRaiz.setIzq(nuevo);
+				}
+				else {
+					agregarJugador(nombre, puntaje, jug.getIzq());
+				}
+				
 			}
 		}
 	}
@@ -243,34 +251,31 @@ public class JuegoDragon {
 	 * para usarlo en el movimiento del dragón
 	 * @param codigo del dragón que se va a buscar
 	 * @return El dragón encontrado
-	 * @throws NoExisteException Si no hay dragones
 	 */
-	public Dragon buscarDragonCodigo(int codigo) throws NoExisteException {
-		Dragon encontrado = null;
-		Dragon actual = primerDragon;
-		if (actual == null) {
-			NoExisteException ne = new NoExisteException("No existe");
-			throw ne;
+	public Dragon buscarDragonCodigo(int codigo)  {
+		if (primerDragon == null) {
+			return null;
+		}
+		else if (primerDragon.getCodigo() == codigo) {
+			return primerDragon;
 		}
 		else {
-			if (actual.getCodigo() == codigo) {
-				encontrado = actual;
+			return buscarDragonCodigo(codigo, primerDragon.getSiguiente());
+			
+		}		
+	}
+	public Dragon buscarDragonCodigo(int codigo, Dragon drag) {
+		if (drag == null || drag.equals(primerDragon)) {
+			return null;
+		}
+		else {
+			if (drag.getCodigo() == codigo) {
+				return drag;				
 			}
 			else {
-				boolean salir = false;
-				actual = actual.getSiguiente();
-				while ((actual != null) && (actual != primerDragon) && !salir) {
-					if (actual.getCodigo() == codigo) {
-						encontrado = actual;
-						salir = true;
-					}
-					else {
-						actual = actual.getSiguiente();
-					}
-				}
+				return buscarDragonCodigo(codigo, drag.getSiguiente());
 			}
 		}
-		return encontrado;
 	}
 
 	/**
